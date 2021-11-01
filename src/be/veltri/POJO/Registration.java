@@ -6,8 +6,8 @@ public class Registration implements Serializable {
 
     // Parameters
 	private static final long serialVersionUID = -2973256169538184808L;
-	private boolean passenger;
-	private boolean bike;
+	private boolean passenger = false;
+	private boolean bike = false;
 
 	// Builder with and without parameters
 	public Registration() {}

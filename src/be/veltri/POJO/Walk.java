@@ -8,10 +8,10 @@ public class Walk implements Serializable {
 
 	// Parameters
 	private static final long serialVersionUID = -386600856277767918L;
-	private int walkNumber;
-	private String placeDeparture;
-	private Date dateDeparture;
-	private int forfeit;
+	private int walkNumber = 0;
+	private String placeDeparture = "";
+	private Date dateDeparture = null;
+	private int forfeit = 0;
 	private Set<Registration> listRegistration = new HashSet<>();
     private Set<Member> listParticipants = new HashSet<>();
     private Set<Car> listCars = new HashSet<>();

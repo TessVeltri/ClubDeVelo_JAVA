@@ -8,8 +8,8 @@ public class Member extends Person implements Serializable {
 	
 	// Parameters 
 	private static final long serialVersionUID = -4534714288962563667L;
-	private float pay;
-	private Car car;
+	private float pay = 0;
+	private Car car = null;
 	private Set<Bike> listBike = new HashSet<>();
 	private Set<Category> listCategory = new HashSet<>();
 	private Set<Registration> listRegistration = new HashSet<>();

@@ -7,8 +7,8 @@ public class Car implements Serializable {
 	
 	// Parameters 
 	private static final long serialVersionUID = -3093959181040098424L;
-	private int nbrMemberPlace;
-	private int nbrBikePlace;
+	private int nbrMemberPlace = 0;
+	private int nbrBikePlace = 0;
 	private Set<Member> listPassenger = new HashSet<>();
 	private Set<Bike> listBike = new HashSet<>();
 	
