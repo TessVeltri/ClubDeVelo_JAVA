@@ -9,18 +9,16 @@ public class Car implements Serializable {
 	private static final long serialVersionUID = -3093959181040098424L;
 	private int nbrMemberPlace;
 	private int nbrBikePlace;
-	private Member driver;
-	private Set<Member> listPassenger = new HashSet<>() ;
+	private Set<Member> listPassenger = new HashSet<>();
 	private Set<Bike> listBike = new HashSet<>();
 	
     // Builder with and without parameters
     public Car() {}
     
-    public Car(int nbrMemberPlace, int nbrBikePlace, Member driver) {
+    public Car(int nbrMemberPlace, int nbrBikePlace) {
 		super();
 		this.nbrMemberPlace = nbrMemberPlace;
 		this.nbrBikePlace = nbrBikePlace;
-		this.driver = driver;
 	}
     
     // Getters and Setters
@@ -36,13 +34,6 @@ public class Car implements Serializable {
 	}
 	public void setNbrBikePlace(int nbrBikePlace) {
 		this.nbrBikePlace = nbrBikePlace;
-	}
-
-	public Member getDriver() {
-		return driver;
-	}
-	public void setDriver(Member driver) {
-		this.driver = driver;
 	}
 
 	public Set<Member> getListPassenger() {

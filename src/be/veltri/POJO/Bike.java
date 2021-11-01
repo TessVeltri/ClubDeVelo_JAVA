@@ -6,9 +6,9 @@ public class Bike implements Serializable{
 	
 	// Parameters
 	private static final long serialVersionUID = -8160503794737965587L;
-	private float weight;
-    private String type;
-    private float length;
+	private float weight = 0;
+    private String type = "";
+    private float length = 0;
 
     // Builder with and without parameters
     public Bike() {}

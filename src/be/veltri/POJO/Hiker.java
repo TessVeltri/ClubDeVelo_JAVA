@@ -7,9 +7,7 @@ public class Hiker extends VTT implements Serializable {
 	// Parameters
 	private static final long serialVersionUID = 710038844832355865L;
 
-	// Builder with and without parameters
-	public Hiker() {}
-
+	// Builder with parameters
 	public Hiker(int categoryNumber) {
 		categoryNumber = 3;
 	}
