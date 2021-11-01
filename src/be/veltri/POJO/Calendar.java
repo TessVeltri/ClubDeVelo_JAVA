@@ -12,7 +12,7 @@ public class Calendar implements Serializable {
 	private Set<Walk> listWalk = new HashSet<>();
 
 	// Builder without parameters
-    private Calendar() {}
+    public Calendar() {}
     
     // Singleton
     public static Calendar getInstance() {

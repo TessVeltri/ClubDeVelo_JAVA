@@ -8,8 +8,8 @@ public class Cyclo extends Category implements Serializable {
 	private static final long serialVersionUID = -5413583480615463257L;
 
 	// Builder with parameters
-	public Cyclo(int categoryNumber) {
-		categoryNumber = 4;
+	public Cyclo() {
+		super.setCategoryNumber(3);
 	}
     
     
