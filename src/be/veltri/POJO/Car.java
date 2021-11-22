@@ -7,6 +7,7 @@ public class Car implements Serializable {
 	
 	// Parameters 
 	private static final long serialVersionUID = -3093959181040098424L;
+	private String carName = "";
 	private int nbrMemberPlace = 0;
 	private int nbrBikePlace = 0;
 	private Set<Member> listPassenger = new HashSet<>();
@@ -15,8 +16,9 @@ public class Car implements Serializable {
     // Builder with and without parameters
     public Car() {}
     
-    public Car(int nbrMemberPlace, int nbrBikePlace) {
+    public Car(String carName, int nbrMemberPlace, int nbrBikePlace) {
 		super();
+		this.carName = carName;
 		this.nbrMemberPlace = nbrMemberPlace;
 		this.nbrBikePlace = nbrBikePlace;
 	}
@@ -52,6 +54,14 @@ public class Car implements Serializable {
 		this.listBike = listBike;
 	}
 	
+	public String getCarName() {
+		return carName;
+	}
+
+	public void setCarName(String carName) {
+		this.carName = carName;
+	}
+
 	// Methods
 	public void addPassenger(Member passenger) {
 		if(!listPassenger.contains(passenger))
