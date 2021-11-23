@@ -10,17 +10,19 @@ public class Car implements Serializable {
 	private String carName = "";
 	private int nbrMemberPlace = 0;
 	private int nbrBikePlace = 0;
+	private Person person;
 	private Set<Member> listPassenger = new HashSet<>();
 	private Set<Bike> listBike = new HashSet<>();
 	
     // Builder with and without parameters
     public Car() {}
     
-    public Car(String carName, int nbrMemberPlace, int nbrBikePlace) {
+    public Car(String carName, int nbrMemberPlace, int nbrBikePlace, Person person) {
 		super();
 		this.carName = carName;
 		this.nbrMemberPlace = nbrMemberPlace;
 		this.nbrBikePlace = nbrBikePlace;
+		this.person = person;
 	}
     
     // Getters and Setters
@@ -77,5 +79,12 @@ public class Car implements Serializable {
     public void deleteBike(Bike bike) {
         this.listBike.remove(bike);
     }
+
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
+	}
 
 }

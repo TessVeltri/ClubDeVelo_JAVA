@@ -10,8 +10,8 @@ public class Treasurer extends Person implements Serializable{
 	// Builder with and without parameters
     public Treasurer() {}
 
-    public Treasurer(int id, String name, String firstname, String phone, String password) {
-		super(id, name, firstname, phone, password);
+    public Treasurer(String username, String name, String firstname, String phone, String password, String type) {
+		super(username, name, firstname, phone, password, type);
 	}
     
     // TODO Move to Treasure DAO
