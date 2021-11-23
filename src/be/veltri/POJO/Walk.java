@@ -8,7 +8,6 @@ public class Walk implements Serializable {
 
 	// Parameters
 	private static final long serialVersionUID = -386600856277767918L;
-	private int walkNumber = 0;
 	private String placeDeparture = "";
 	private Date dateDeparture = null;
 	private int forfeit = 0;
@@ -19,21 +18,13 @@ public class Walk implements Serializable {
 	// Builder with and without parameters
     public Walk() {}
     
-    public Walk(int walkNumber, String placeDeparture, Date dateDeparture, int forfeit) {
-		this.walkNumber = walkNumber;
+    public Walk(String placeDeparture, Date dateDeparture, int forfeit) {
 		this.placeDeparture = placeDeparture;
 		this.dateDeparture = dateDeparture;
 		this.forfeit = forfeit;
 	}
 
-    // Getters and Setters    
-	public int getWalkNumber() {
-		return walkNumber;
-	}
-	public void setWalkNumber(int walkNumber) {
-		this.walkNumber = walkNumber;
-	}
-
+    // Getters and Setters
 	public String getPlaceDeparture() {
 		return placeDeparture;
 	}

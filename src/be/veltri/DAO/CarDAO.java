@@ -36,6 +36,10 @@ public class CarDAO extends DAO<Car>{
 	public Car find(int id) {
 		return null;
 	}
+
+	public Car find(Car obj) {
+		return null;
+	}
 	
 
 }

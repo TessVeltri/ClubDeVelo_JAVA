@@ -37,6 +37,15 @@ public class BikeDAO extends DAO<Bike>{
 	public Bike find(int id) {
 		return null;
 	}
+
+	public Bike find(Object o) {
+		return null;
+	}
+
+	@Override
+	public Bike find(Bike obj) {
+		return null;
+	}
 	
 
 }

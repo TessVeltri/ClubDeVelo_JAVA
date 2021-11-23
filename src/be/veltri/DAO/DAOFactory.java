@@ -1,10 +1,8 @@
 package be.veltri.DAO;
 
 import java.sql.Connection;
-
 import be.veltri.DB.ClubDeVeloConnection;
-import be.veltri.POJO.Bike;
-import be.veltri.POJO.Car;
+import be.veltri.POJO.*;
 
 public class DAOFactory extends AbstractDAOFactory {
 	protected static final Connection conn = ClubDeVeloConnection.getInstance();
@@ -15,6 +13,10 @@ public class DAOFactory extends AbstractDAOFactory {
 
 	public DAO<Car> getCarDAO() {
 		return new CarDAO (conn);
+	}
+	
+	public DAO<Person> getPersonDAO() {
+		return new PersonDAO (conn);
 	}
 	
 	

@@ -9,19 +9,15 @@ public class Member extends Person implements Serializable {
 	// Parameters 
 	private static final long serialVersionUID = -4534714288962563667L;
 	private float pay = 0;
-	private Car car = null;
 	private Set<Bike> listBike = new HashSet<>();
 	private Set<Category> listCategory = new HashSet<>();
 	private Set<Registration> listRegistration = new HashSet<>();
 	
 
 	// Builder with and without parameters
-    public Member() {}
-
-    public Member(int id, String name, String firstname, String phone, String password, float pay, Car car) {
-		super(id, name, firstname, phone, password);
+    public Member(String username, String name, String firstname, String phone, String password, String type, float pay) {
+		super(username, name, firstname, phone, password, type);
 		this.pay = pay;
-		this.car = car;
 	}
     
     // Getters and Setters
@@ -30,13 +26,6 @@ public class Member extends Person implements Serializable {
 	}
 	public void setPay(float pay) {
 		this.pay = pay;
-	}
-
-	public Car getCar() {
-		return car;
-	}
-	public void setCar(Car car) {
-		this.car = car;
 	}
 	
 	// Methods

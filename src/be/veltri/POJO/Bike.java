@@ -9,14 +9,16 @@ public class Bike implements Serializable{
 	private float weight = 0;
     private String type = "";
     private float length = 0;
+    private Person person;
 
     // Builder with and without parameters
     public Bike() {}
 
-	public Bike(float weight, String type, float length) {
+	public Bike(float weight, String type, float length, Person person) {
 		this.weight = weight;
 		this.type = type;
 		this.length = length;
+		this.person = person;
 	}
 
 	// Getters and Setters
@@ -39,5 +41,12 @@ public class Bike implements Serializable{
 	}
 	public void setLength(float length) {
 		this.length = length;
+	}
+
+	public Person getPerson() {
+		return person;
+	}
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 }

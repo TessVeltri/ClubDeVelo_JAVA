@@ -1,7 +1,6 @@
 package be.veltri.DAO;
 
-import be.veltri.POJO.Bike;
-import be.veltri.POJO.Car;
+import be.veltri.POJO.*;
 
 public abstract class AbstractDAOFactory {
 	public static final int DAO_FACTORY = 0;
@@ -11,6 +10,8 @@ public abstract class AbstractDAOFactory {
 	public abstract DAO<Bike> getBikeDAO();
 	
 	public abstract DAO<Car> getCarDAO();
+	
+	public abstract DAO<Person> getPersonDAO();
 
 	public static AbstractDAOFactory getFactory(int type){
 		switch(type){
