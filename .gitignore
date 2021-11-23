@@ -1,1 +1,10 @@
 /bin/
+commons-lang3-3.8.1.jar
+commons-logging-1.2.jar
+hsqldb-2.5.0.jar
+jackcess-3.0.1.jar
+jcalendar-1.4.jar
+jgoodies-common-1.2.0.jar
+jgoodies-looks-2.4.1.jar
+junit-4.6.jar
+ucanaccess-5.0.1.jar
