@@ -2,35 +2,35 @@ package be.veltri.POJO;
 
 import java.io.Serializable;
 
-public abstract class Person implements Serializable{
+import be.veltri.DAO.*;
+
+public class Person implements Serializable{
 	
 	// Parameters
 	private static final long serialVersionUID = -8046334496633743917L;
-	private int id = 0;
+	private String username = "";
 	private String name = "";
     private String firstname = "";
     private String phone = "";
     private String password = "";
+    private String type = "";
+    
+    private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static DAO<Person> personDAO = dao.getPersonDAO();
 
     // Builder with and without parameters
     public Person() {}
 
-	public Person(int id, String name, String firstname, String phone, String password) {
-		this.id = id;
+	public Person(String username, String name, String firstname, String phone, String password, String type) {
+		this.username = username;
 		this.name = name;
 		this.firstname = firstname;
 		this.phone = phone;
 		this.password = password;
+		this.type = type;
 	}
 
 	// Getters and setters
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -58,5 +58,26 @@ public abstract class Person implements Serializable{
 	public void setPassword(String password) {
 		this.password = password;
 	}
-    
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
+	// Methods
+	public Person find () {
+		Person person = personDAO.find(this);
+		return person;
+	}
 }

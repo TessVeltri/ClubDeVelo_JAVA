@@ -10,7 +10,7 @@ public class Manager extends Person implements Serializable{
 	// Builder with and without parameters
 	public Manager() {}
 
-	public Manager(int id, String name, String firstname, String phone, String password) {
-		super(id, name, firstname, phone, password);
+	public Manager(String username, String name, String firstname, String phone, String password, String type) {
+		super(username, name, firstname, phone, password, type);
 	}
 }
