@@ -80,4 +80,19 @@ public class Person implements Serializable{
 		Person person = personDAO.find(this);
 		return person;
 	}
+	
+	public boolean create () {
+		boolean create = personDAO.create(this);
+		return create;
+	}
+	
+	public int findId () {
+		int id = personDAO.findId(this);
+		return id;
+	}
+	
+	public boolean findByName () {
+		boolean find = personDAO.findByName(this.getUsername());
+		return find;
+	}
 }

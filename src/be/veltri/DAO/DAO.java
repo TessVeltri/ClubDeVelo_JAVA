@@ -18,4 +18,8 @@ public abstract class DAO<T> {
 	public abstract T find(int id);
 
 	public abstract T find(T obj);
+	
+	public abstract int findId (T obj);
+
+	public abstract boolean findByName (String name);
 }

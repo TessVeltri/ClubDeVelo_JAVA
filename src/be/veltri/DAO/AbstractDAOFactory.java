@@ -13,6 +13,8 @@ public abstract class AbstractDAOFactory {
 	
 	public abstract DAO<Person> getPersonDAO();
 
+	public abstract DAO<Category_Person> getCategoryPersonDAO();
+
 	public static AbstractDAOFactory getFactory(int type){
 		switch(type){
 		case DAO_FACTORY:

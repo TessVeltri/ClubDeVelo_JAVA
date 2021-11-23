@@ -46,6 +46,18 @@ public class BikeDAO extends DAO<Bike>{
 	public Bike find(Bike obj) {
 		return null;
 	}
+
+	@Override
+	public int findId(Bike obj) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean findByName(String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

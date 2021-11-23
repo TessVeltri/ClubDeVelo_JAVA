@@ -40,6 +40,18 @@ public class CarDAO extends DAO<Car>{
 	public Car find(Car obj) {
 		return null;
 	}
+
+	@Override
+	public int findId(Car obj) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public boolean findByName(String name) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

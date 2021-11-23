@@ -13,7 +13,16 @@ public class PersonDAO extends DAO<Person> {
 	}
 
 	public boolean create(Person obj) {
-		return false;
+		try {
+			this.connect.createStatement().executeUpdate(
+					"INSERT INTO Person(username_Person, name_Person, firstname_Person, phone_Person, password_Person, "
+					+ "type_Person, pay_Person) Values('" + obj.getUsername() + "', '" + obj.getName() + "', '" + 
+					obj.getFirstname() + "', '" + obj.getPhone() + "', '" + obj.getPassword() + "', '" + obj.getType() + "', '0')");			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public boolean delete(Person obj) {
@@ -43,6 +52,39 @@ public class PersonDAO extends DAO<Person> {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
+		}
+	}
+
+	public int findId(Person obj) {
+		int id = 0;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id_Person FROM Person WHERE username_Person = '" + obj.getUsername()
+							+ "' AND password_Person = '" + obj.getPassword() + "'");
+			if (result.first()) {
+				id = result.getInt(1);
+			}
+			return id;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
+	}
+	public boolean findByName(String name) {
+		boolean verif = false;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT 1 FROM Person WHERE username_Person = '" + name + "'");
+			if (result.first()) {
+				if (result.getInt(1) == 1)
+					verif = true;
+			}
+			return verif;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
 		}
 	}
 }
