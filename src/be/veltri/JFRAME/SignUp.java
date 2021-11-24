@@ -12,7 +12,6 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 
 import be.veltri.POJO.Category;
-import be.veltri.POJO.Category_Person;
 import be.veltri.POJO.Cyclo;
 import be.veltri.POJO.Descent;
 import be.veltri.POJO.Hiker;
@@ -253,7 +252,6 @@ public class SignUp extends JFrame {
 
 				if (verif) {
 					boolean register = person.create();
-					int pers_id = person.findId();
 					Category cat;
 					if (category.equals("VTT_Trialist")) {
 						cat = new Trialist();
@@ -264,8 +262,7 @@ public class SignUp extends JFrame {
 					} else {
 						cat = new Cyclo();
 					}
-					Category_Person cp = new Category_Person (pers_id, cat.getCategoryNumber());
-					boolean register2 = cp.create();
+					boolean register2 = person.addCategoryToPerson(cat.getCategoryNumber());
 
 					if (register && register2) {
 						JOptionPane.showMessageDialog(null, "Great ! Your sign up is done ");

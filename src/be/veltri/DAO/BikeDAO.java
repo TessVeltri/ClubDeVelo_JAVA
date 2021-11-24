@@ -58,6 +58,12 @@ public class BikeDAO extends DAO<Bike>{
 		// TODO Auto-generated method stub
 		return false;
 	}
+
+	@Override
+	public boolean addCategoryToPerson(String name, int category_number) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 
 }

@@ -1,6 +1,6 @@
 package be.veltri.POJO;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.HashSet;
 import java.util.Set;
 

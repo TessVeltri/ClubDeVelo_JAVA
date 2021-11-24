@@ -19,7 +19,4 @@ public class DAOFactory extends AbstractDAOFactory {
 		return new PersonDAO (conn);
 	}
 	
-	public DAO<Category_Person> getCategoryPersonDAO() {
-		return new Category_PersonDAO (conn);
-	}
 }
