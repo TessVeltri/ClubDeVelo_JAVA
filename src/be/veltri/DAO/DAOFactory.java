@@ -19,4 +19,8 @@ public class DAOFactory extends AbstractDAOFactory {
 		return new PersonDAO (conn);
 	}
 	
+	public DAO<Walk> getWalkDAO() {
+		return new WalkDAO (conn);
+	}
+	
 }

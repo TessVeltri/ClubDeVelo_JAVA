@@ -1,6 +1,7 @@
 package be.veltri.DAO;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 public abstract class DAO<T> {
 	protected Connection connect = null;
@@ -18,6 +19,8 @@ public abstract class DAO<T> {
 	public abstract T find(int id);
 
 	public abstract T find(T obj);
+	
+	public abstract ArrayList<T> getAll();
 	
 	public abstract int findId (T obj);
 

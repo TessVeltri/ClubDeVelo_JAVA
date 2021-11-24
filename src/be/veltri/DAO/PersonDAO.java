@@ -3,6 +3,7 @@ package be.veltri.DAO;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import be.veltri.POJO.Person;
 
@@ -112,6 +113,16 @@ public class PersonDAO extends DAO<Person> {
 			e.printStackTrace();
 			return false;
 		}
+	}
+
+	public ArrayList<Person> getAll(Person obj) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<Person> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

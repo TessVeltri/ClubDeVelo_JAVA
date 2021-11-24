@@ -40,6 +40,7 @@ public class SignUp extends JFrame {
 	private JTextField txt_confirmPassword;
 	private JButton btn_validate;
 	private JLabel image;
+	private JButton btn_back;
 
 	/**
 	 * Launch the application.
@@ -279,6 +280,19 @@ public class SignUp extends JFrame {
 		btn_validate.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_validate.setBounds(251, 340, 184, 49);
 		getContentPane().add(btn_validate);
+		
+		btn_back = new JButton("Back");
+		btn_back.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Connection conn = new Connection();
+				conn.setVisible(true);
+				dispose();
+			}
+		});
+		btn_back.setFont(new Font("Serif", Font.PLAIN, 15));
+		btn_back.setBounds(551, 407, 89, 23);
+		getContentPane().add(btn_back);
 
 		image = new JLabel("");
 		Image img = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();

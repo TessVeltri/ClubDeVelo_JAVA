@@ -3,6 +3,8 @@ package be.veltri.POJO;
 import java.io.Serializable;
 import java.util.*;
 
+import be.veltri.DAO.*;
+
 
 public class Walk implements Serializable {
 
@@ -10,17 +12,24 @@ public class Walk implements Serializable {
 	private static final long serialVersionUID = -386600856277767918L;
 	private String placeDeparture = "";
 	private Date dateDeparture = null;
+	private String description_walk = "";
+	private String category_walk = "";
 	private int forfeit = 0;
 	private Set<Registration> listRegistration = new HashSet<>();
     private Set<Member> listParticipants = new HashSet<>();
     private Set<Car> listCars = new HashSet<>();
 
+    private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static DAO<Walk> walkDAO = dao.getWalkDAO();
+
 	// Builder with and without parameters
     public Walk() {}
     
-    public Walk(String placeDeparture, Date dateDeparture, int forfeit) {
+    public Walk(String placeDeparture, Date dateDeparture, String description_walk, String category_walk, int forfeit) {
 		this.placeDeparture = placeDeparture;
 		this.dateDeparture = dateDeparture;
+		this.description_walk = description_walk;
+		this.setCategory_walk(category_walk);
 		this.forfeit = forfeit;
 	}
 
@@ -66,6 +75,22 @@ public class Walk implements Serializable {
 	public void setListRegistration(Set<Registration> listRegistration) {
 		this.listRegistration = listRegistration;
 	}
+	
+	public String getDescription_walk() {
+		return description_walk;
+	}
+
+	public void setDescription_walk(String description_walk) {
+		this.description_walk = description_walk;
+	}
+	
+	public String getCategory_walk() {
+		return category_walk;
+	}
+
+	public void setCategory_walk(String category_walk) {
+		this.category_walk = category_walk;
+	}
 
 	// Methods 
 	public void addParticipant(Member passenger) {
@@ -82,6 +107,13 @@ public class Walk implements Serializable {
     public void deleteCar(Car car) {
         this.listCars.remove(car);
     }
+    
+    public ArrayList<Walk> getAll (){
+		ArrayList<Walk> lst_walk = new ArrayList<Walk>();
+		lst_walk = walkDAO.getAll();
+		return lst_walk;
+    }
+
     
     // TODO Move to Walk DAO
 //    public void GetTotalMemberPlace() {

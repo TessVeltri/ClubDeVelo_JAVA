@@ -2,6 +2,7 @@ package be.veltri.DAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import be.veltri.POJO.Bike;
 
@@ -63,6 +64,12 @@ public class BikeDAO extends DAO<Bike>{
 	public boolean addCategoryToPerson(String name, int category_number) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<Bike> getAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

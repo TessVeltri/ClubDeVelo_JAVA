@@ -1,6 +1,7 @@
 package be.veltri.DAO;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import be.veltri.POJO.Calendar;
 
@@ -47,6 +48,11 @@ public class CalendarDAO extends DAO<Calendar>{
 	public boolean addCategoryToPerson(String name, int category_number) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public ArrayList<Calendar> getAll() {
+		return null;
 	}
 	
 
