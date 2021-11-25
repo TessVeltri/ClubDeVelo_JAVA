@@ -2,6 +2,9 @@ package be.veltri.POJO;
 
 import java.io.Serializable;
 
+import be.veltri.DAO.AbstractDAOFactory;
+import be.veltri.DAO.DAO;
+
 public class Bike implements Serializable{
 	
 	// Parameters
@@ -11,6 +14,8 @@ public class Bike implements Serializable{
     private float length = 0;
     private Person person;
 
+    private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static DAO<Bike> bikeDAO = dao.getBikeDAO();
     // Builder with and without parameters
     public Bike() {}
 

@@ -1,6 +1,10 @@
 package be.veltri.POJO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+
+import be.veltri.DAO.AbstractDAOFactory;
+import be.veltri.DAO.DAO;
 
 public class Registration implements Serializable {
 
@@ -9,6 +13,9 @@ public class Registration implements Serializable {
 	private boolean driver = false;
 	private boolean passenger = false;
 	private boolean bike = false;
+	
+	private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static DAO<Registration> registrationDAO = dao.getRegistrationDAO();
 
 	// Builder with and without parameters
 	public Registration() {}
@@ -42,7 +49,27 @@ public class Registration implements Serializable {
 		this.driver = driver;
 	}
 	
+	// Methods
 	
+	public ArrayList<Registration> getAllById(int id){
+		ArrayList<Registration> lst_reg = registrationDAO.getAllById(id);
+		return lst_reg;
+	}
+
+	public int getPassengerCount(int id) {
+		int count = registrationDAO.getPassengerCount(id);
+		return count;
+	}
+	
+	public int getBikeCount(int id){
+		int count = registrationDAO.getBikeCount(id);
+		return count;
+	}
+
+	public ArrayList<String> getDriver(int id) {
+		ArrayList<String> lst_reg = registrationDAO.getDriver(id);
+		return lst_reg;
+	}
 	
     
 }

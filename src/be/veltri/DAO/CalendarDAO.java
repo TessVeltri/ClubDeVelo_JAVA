@@ -54,6 +54,30 @@ public class CalendarDAO extends DAO<Calendar>{
 	public ArrayList<Calendar> getAll() {
 		return null;
 	}
+
+	@Override
+	public ArrayList<Calendar> getAllById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getPassengerCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBikeCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

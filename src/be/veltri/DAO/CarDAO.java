@@ -65,6 +65,30 @@ public class CarDAO extends DAO<Car>{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ArrayList<Car> getAllById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getPassengerCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBikeCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 
 }

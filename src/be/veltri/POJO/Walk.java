@@ -1,7 +1,10 @@
 package be.veltri.POJO;
 
-import java.io.Serializable;
-import java.util.*;
+import java.io.Serializable; 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 import be.veltri.DAO.*;
 
@@ -112,6 +115,11 @@ public class Walk implements Serializable {
 		ArrayList<Walk> lst_walk = new ArrayList<Walk>();
 		lst_walk = walkDAO.getAll();
 		return lst_walk;
+    }
+    
+    public int findId() {
+    	int id = walkDAO.findId(this);
+    	return id;
     }
 
     

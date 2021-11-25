@@ -121,7 +121,8 @@ public class ManagerHome extends JFrame {
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-					Walk walk_to_pass = new Walk(walk_dep, walk_date, "", walk_cat, 0);
+					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
+					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
 					
 					setVisible(false);
 					ForfeitManager fm = new ForfeitManager(walk_to_pass);

@@ -291,7 +291,7 @@ public class SignUp extends JFrame {
 			}
 		});
 		btn_back.setFont(new Font("Serif", Font.PLAIN, 15));
-		btn_back.setBounds(551, 407, 89, 23);
+		btn_back.setBounds(21, 420, 205, 32);
 		getContentPane().add(btn_back);
 
 		image = new JLabel("");

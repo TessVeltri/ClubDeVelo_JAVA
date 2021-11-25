@@ -3,6 +3,8 @@ package be.veltri.DAO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Person;
+
 public abstract class DAO<T> {
 	protected Connection connect = null;
 	
@@ -22,9 +24,18 @@ public abstract class DAO<T> {
 	
 	public abstract ArrayList<T> getAll();
 	
+	public abstract ArrayList<T> getAllById(int id);
+	
 	public abstract int findId (T obj);
 
 	public abstract boolean findByName (String name);
 	
 	public abstract boolean addCategoryToPerson (String name, int category_number);
+
+	public abstract int getPassengerCount (int id);
+
+	public abstract int getBikeCount (int id);
+	
+	public abstract ArrayList<String> getDriver (int id);
+	
 }

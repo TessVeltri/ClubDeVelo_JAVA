@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import be.veltri.DAO.AbstractDAOFactory;
+import be.veltri.DAO.DAO;
+
 public class Member extends Person implements Serializable {
 	
 	// Parameters 
@@ -12,7 +15,9 @@ public class Member extends Person implements Serializable {
 	private Set<Bike> listBike = new HashSet<>();
 	private Set<Category> listCategory = new HashSet<>();
 	private Set<Registration> listRegistration = new HashSet<>();
-	
+
+    private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static DAO<Member> memberDAO = dao.getMemberDAO();
 
 	// Builder with and without parameters
     public Member(String username, String name, String firstname, String phone, String password, String type, float pay) {

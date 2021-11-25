@@ -3,6 +3,9 @@ package be.veltri.POJO;
 import java.io.Serializable;
 import java.util.*;
 
+import be.veltri.DAO.AbstractDAOFactory;
+import be.veltri.DAO.DAO;
+
 public class Car implements Serializable {
 	
 	// Parameters 
@@ -13,7 +16,9 @@ public class Car implements Serializable {
 	private Person person;
 	private Set<Member> listPassenger = new HashSet<>();
 	private Set<Bike> listBike = new HashSet<>();
-	
+
+    private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static DAO<Car> carDAO = dao.getCarDAO();
     // Builder with and without parameters
     public Car() {}
     

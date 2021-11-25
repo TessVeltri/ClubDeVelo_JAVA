@@ -65,4 +65,28 @@ public class ManagerDAO extends DAO <Manager>{
 		return false;
 	}
 
+	@Override
+	public ArrayList<Manager> getAllById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getPassengerCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBikeCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

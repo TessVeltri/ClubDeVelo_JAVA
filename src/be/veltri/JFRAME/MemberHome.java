@@ -1,6 +1,6 @@
 package be.veltri.JFRAME;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -88,18 +88,18 @@ public class MemberHome extends JFrame {
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "N°", "Walk category", "Walk date", "Walk departure" }));
+				new String[] { "N°", "Walk category", "Walk date", "Walk departure", "Description" }));
 
 		Walk w = new Walk();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		int i = 1;
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		LocalDateTime now = LocalDateTime.now();
+		Date now = new Date();
 		for (Walk walk : w.getAll()) {
-			if (simpleDateFormat.format(now).compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
+			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
 				Object[] row = new Object[] { i++, walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
-						walk.getPlaceDeparture() };
+						walk.getPlaceDeparture(), walk.getDescription_walk() };
 				model.addRow(row);
 			}
 		}
@@ -117,16 +117,18 @@ public class MemberHome extends JFrame {
 					String walk_cat = model.getValueAt(index, 1).toString();
 					String walk_date_tmp = model.getValueAt(index, 2).toString();
 					String walk_dep = model.getValueAt(index, 3).toString();
+					String walk_desc = model.getValueAt(index, 4).toString();
 					Date walk_date = null;
 					try {
 						walk_date = new SimpleDateFormat("dd-MM-yyyy").parse(walk_date_tmp);
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-					Walk walk_to_pass = new Walk(walk_dep, walk_date, "", walk_cat, 0);
+					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
+					Walk walk_to_pass = new Walk(walk_dep, w_date, walk_desc, walk_cat, 0);
 					
 				setVisible(false);
-				DriverAvailability da = new DriverAvailability(walk_to_pass);
+				DriverAvailability da = new DriverAvailability(walk_to_pass, member);
 				da.setVisible(true);
 			}
 		}});
@@ -152,7 +154,8 @@ public class MemberHome extends JFrame {
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-					Walk walk_to_pass = new Walk(walk_dep, walk_date, "", walk_cat, 0);
+					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
+					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
 					
 					setVisible(false);
 					RegistrationToWalk rw = new RegistrationToWalk(number, walk_to_pass);

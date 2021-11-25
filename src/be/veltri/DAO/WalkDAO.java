@@ -34,7 +34,21 @@ public class WalkDAO extends DAO<Walk> {
 	}
 
 	public int findId(Walk obj) {
-		return 0;
+		int id = 0;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id_Walk FROM Walk WHERE placeDeparture_Walk = '" + obj.getPlaceDeparture()
+							+ "' AND dateDeparture_Walk = '" + obj.getDateDeparture() + "' AND description_Walk = '"
+							+ obj.getDescription_walk() + "' AND category_Walk = '" + obj.getCategory_walk() + "'");
+			if (result.first()) {
+				id = result.getInt(1);
+			}
+			return id;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}
 	}
 
 	public boolean findByName(String name) {
@@ -49,11 +63,11 @@ public class WalkDAO extends DAO<Walk> {
 		ArrayList<Walk> lst_walks = new ArrayList<Walk>();
 		try {
 			ResultSet result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
-							"SELECT placeDeparture_Walk, dateDeptature_Walk, description_Walk, category_Walk, "
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT placeDeparture_Walk, dateDeparture_Walk, description_Walk, category_Walk, "
 							+ "forfeit_Walk FROM Walk");
 			while (result.next()) {
-				Walk walk = new Walk(result.getString("placeDeparture_Walk"), result.getTimestamp("dateDeparture_Walk"),
+				Walk walk = new Walk(result.getString("placeDeparture_Walk"), result.getDate("dateDeparture_Walk"),
 						result.getString("description_Walk"), result.getString("category_Walk"),
 						result.getInt("forfeit_Walk"));
 				lst_walks.add(walk);
@@ -64,5 +78,30 @@ public class WalkDAO extends DAO<Walk> {
 			return null;
 		}
 	}
+
+	@Override
+	public ArrayList<Walk> getAllById(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int getPassengerCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getBikeCount(int id) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

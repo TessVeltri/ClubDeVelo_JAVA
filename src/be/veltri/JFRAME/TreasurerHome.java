@@ -119,7 +119,8 @@ public class TreasurerHome extends JFrame {
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-					Walk walk_to_pass = new Walk(walk_dep, walk_date, "", walk_cat, 0);
+					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
+					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
 					
 				setVisible(false);
 				RefundDriver da = new RefundDriver(walk_to_pass);
@@ -174,7 +175,8 @@ public class TreasurerHome extends JFrame {
 					} catch (ParseException e1) {
 						e1.printStackTrace();
 					}
-					Walk walk_to_pass = new Walk(walk_dep, walk_date, "", walk_cat, 0);
+					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
+					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
 					
 					setVisible(false);
 					PassengerPayment rw = new PassengerPayment(walk_to_pass);

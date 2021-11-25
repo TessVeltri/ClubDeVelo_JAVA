@@ -4,12 +4,18 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import be.veltri.DAO.AbstractDAOFactory;
+import be.veltri.DAO.DAO;
+
 public class Calendar implements Serializable {
 
 	// Parameters
 	private static final long serialVersionUID = 1L;
 	private static Calendar instance;
 	private Set<Walk> listWalk = new HashSet<>();
+	
+    private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static DAO<Calendar> calendarDAO = dao.getCalendarDAO();
 
 	// Builder without parameters
     public Calendar() {}
