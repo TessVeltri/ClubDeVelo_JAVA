@@ -49,11 +49,13 @@ public class WalkDAO extends DAO<Walk> {
 		ArrayList<Walk> lst_walks = new ArrayList<Walk>();
 		try {
 			ResultSet result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT * FROM Walk");
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT placeDeparture_Walk, dateDeptature_Walk, description_Walk, category_Walk, "
+							+ "forfeit_Walk FROM Walk");
 			while (result.next()) {
 				Walk walk = new Walk(result.getString("placeDeparture_Walk"), result.getTimestamp("dateDeparture_Walk"),
-						result.getString("description_Walk"),result.getString("category_Walk"), result.getInt("forfeit_Walk"));
+						result.getString("description_Walk"), result.getString("category_Walk"),
+						result.getInt("forfeit_Walk"));
 				lst_walks.add(walk);
 			}
 			return lst_walks;

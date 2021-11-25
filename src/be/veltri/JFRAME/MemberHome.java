@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,33 +15,26 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import com.toedter.calendar.JCalendar;
 
 import be.veltri.POJO.Member;
 import be.veltri.POJO.Walk;
 
-import javax.swing.JTextPane;
-import javax.swing.JScrollBar;
-import java.awt.Scrollbar;
-import java.awt.ScrollPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import java.awt.event.ActionListener;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.Date;
-import java.util.Locale;
 import java.awt.event.ActionEvent;
 
 public class MemberHome extends JFrame {
 
+	private static final long serialVersionUID = 4255365256306606039L;
 	private JPanel contentPane;
 	private JLabel image;
 	private JTable table;
-	private ArrayList<Walk> lst_walks = new ArrayList<Walk>();
 
 	/**
 	 * Launch the application.
@@ -80,6 +72,9 @@ public class MemberHome extends JFrame {
 		JButton btn_account = new JButton("");
 		btn_account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				Account acc = new Account(member);
+				acc.setVisible(true);
 			}
 		});
 		Image img = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/user_logo.jpg")).getImage();
@@ -98,16 +93,43 @@ public class MemberHome extends JFrame {
 		Walk w = new Walk();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		int i = 1;
+		String pattern = "dd-MM-yyyy";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		LocalDateTime now = LocalDateTime.now();
 		for (Walk walk : w.getAll()) {
-			String pattern = "dd-MM-yyyy";
-			SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-			Object[] row = new Object[] { i++, walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
-					walk.getPlaceDeparture() };
-			model.addRow(row);
+			if (simpleDateFormat.format(now).compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
+				Object[] row = new Object[] { i++, walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
+						walk.getPlaceDeparture() };
+				model.addRow(row);
+			}
 		}
 		walkList.setViewportView(table);
 
 		JButton btn_driverA = new JButton("Drivers available");
+		btn_driverA.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = table.getSelectedRow();
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "No row selected, please select one");
+				} else {
+					DefaultTableModel model = (DefaultTableModel) table.getModel();
+					String number = model.getValueAt(index, 0).toString();
+					String walk_cat = model.getValueAt(index, 1).toString();
+					String walk_date_tmp = model.getValueAt(index, 2).toString();
+					String walk_dep = model.getValueAt(index, 3).toString();
+					Date walk_date = null;
+					try {
+						walk_date = new SimpleDateFormat("dd-MM-yyyy").parse(walk_date_tmp);
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					Walk walk_to_pass = new Walk(walk_dep, walk_date, "", walk_cat, 0);
+					
+				setVisible(false);
+				DriverAvailability da = new DriverAvailability(walk_to_pass);
+				da.setVisible(true);
+			}
+		}});
 		btn_driverA.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_driverA.setBounds(420, 215, 205, 32);
 		contentPane.add(btn_driverA);

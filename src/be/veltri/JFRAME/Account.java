@@ -1,16 +1,17 @@
 package be.veltri.JFRAME;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import be.veltri.POJO.Walk;
+import be.veltri.POJO.Person;
 
-public class RegistrationToWalk extends JFrame {
+public class Account extends JFrame {
 
-	private static final long serialVersionUID = 5808341258584506208L;
+	private static final long serialVersionUID = 8498594029634789428L;
 	private JPanel contentPane;
 
 	/**
@@ -32,13 +33,13 @@ public class RegistrationToWalk extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegistrationToWalk(String number, Walk walk) {
+	public Account(Person person) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 700, 500);
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 	}
 
 }
