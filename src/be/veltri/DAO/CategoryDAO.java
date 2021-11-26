@@ -1,10 +1,16 @@
 package be.veltri.DAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import be.veltri.POJO.Category;
+import be.veltri.POJO.Cyclo;
+import be.veltri.POJO.Descent;
+import be.veltri.POJO.Hiker;
+import be.veltri.POJO.Registration;
+import be.veltri.POJO.Trialist;
 
 public class CategoryDAO extends DAO<Category>{
 
@@ -62,8 +68,31 @@ public class CategoryDAO extends DAO<Category>{
 	
 	@Override
 	public ArrayList<Category> getAllById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Category> lst_cat = new ArrayList<Category>();
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT id_Category FROM Category_Person WHERE id_Person = '" + id + "'");
+			while (result.next()) {
+				if (result.getInt(1) == 1) {
+					Category cat = new Trialist();
+					lst_cat.add(cat);
+				} else if (result.getInt(1) == 2) {
+					Category cat = new Descent();
+					lst_cat.add(cat);
+				} else if (result.getInt(1) == 3) {
+					Category cat = new Hiker();
+					lst_cat.add(cat);
+				} else if (result.getInt(1) == 4) {
+					Category cat = new Cyclo();
+					lst_cat.add(cat);
+				} 
+			}
+			return lst_cat;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

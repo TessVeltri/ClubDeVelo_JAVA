@@ -10,5 +10,6 @@ public class Descent extends VTT implements Serializable{
 	// Builder with parameters
     public Descent() {
     	super.setCategoryNumber(2);
+    	super.setCategoryName("VTT_Descent");
 	}
 }

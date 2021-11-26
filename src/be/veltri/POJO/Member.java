@@ -1,6 +1,7 @@
 package be.veltri.POJO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -20,6 +21,8 @@ public class Member extends Person implements Serializable {
 	private static DAO<Member> memberDAO = dao.getMemberDAO();
 
 	// Builder with and without parameters
+	public Member () {}
+	
     public Member(String username, String name, String firstname, String phone, String password, String type, float pay) {
 		super(username, name, firstname, phone, password, type);
 		this.pay = pay;
@@ -55,6 +58,16 @@ public class Member extends Person implements Serializable {
     public void deleteRegistration(Registration registration) {
         this.listRegistration.remove(registration);
     }
+    
+    // Methods
+	public ArrayList<Member> getAll() {
+		ArrayList<Member> lst_pers = memberDAO.getAll();
+		return lst_pers;
+	}
+	public boolean update() {
+		boolean update = memberDAO.update(this);
+		return update;
+	}
 
 	// TODO Move to Member DAO
 //    public void CalculatePay() {
@@ -63,5 +76,6 @@ public class Member extends Person implements Serializable {
 //    public void VerifyPay() {
 //        // TODO implement here
 //    }
+    
 
 }

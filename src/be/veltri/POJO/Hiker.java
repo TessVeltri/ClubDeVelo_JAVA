@@ -10,5 +10,6 @@ public class Hiker extends VTT implements Serializable {
 	// Builder with parameters
 	public Hiker() {
 		super.setCategoryNumber(3);
+		super.setCategoryName("VTT_Hiker");
 	}
 }

@@ -10,6 +10,7 @@ public class Trialist extends VTT implements Serializable{
 	// Builder with parameters
     public Trialist() {
 		super.setCategoryNumber(1);
+		super.setCategoryName("VTT_Trialist");
 	}
     
 

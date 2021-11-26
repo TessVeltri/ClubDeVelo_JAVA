@@ -93,9 +93,9 @@ public class ManagerHome extends JFrame {
 		int i = 1;
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		LocalDateTime now = LocalDateTime.now();
+		Date now = new Date ();
 		for (Walk walk : w.getAll()) {
-			if (simpleDateFormat.format(now).compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
+			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
 				Object[] row = new Object[] { i++, walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
 						walk.getPlaceDeparture() };
 				model.addRow(row);
@@ -103,31 +103,12 @@ public class ManagerHome extends JFrame {
 		}
 		walkList.setViewportView(table);
 
-		JButton btn_forfeit = new JButton("Forfeit");
+		JButton btn_forfeit = new JButton("Members forfeit");
 		btn_forfeit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				int index = table.getSelectedRow();
-				if (index == -1) {
-					JOptionPane.showMessageDialog(null, "No row selected, please select one");
-				} else {
-					DefaultTableModel model = (DefaultTableModel) table.getModel();
-					String number = model.getValueAt(index, 0).toString();
-					String walk_cat = model.getValueAt(index, 1).toString();
-					String walk_date_tmp = model.getValueAt(index, 2).toString();
-					String walk_dep = model.getValueAt(index, 3).toString();
-					Date walk_date = null;
-					try {
-						walk_date = new SimpleDateFormat("dd-MM-yyyy").parse(walk_date_tmp);
-					} catch (ParseException e1) {
-						e1.printStackTrace();
-					}
-					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
-					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
-					
-					setVisible(false);
-					ForfeitManager fm = new ForfeitManager(walk_to_pass);
-					fm.setVisible(true);
-			}
+			public void actionPerformed(ActionEvent e) {					
+				setVisible(false);
+				ForfeitManager fm = new ForfeitManager(manager);
+				fm.setVisible(true);
 		}});
 		btn_forfeit.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_forfeit.setBounds(420, 215, 205, 32);

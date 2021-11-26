@@ -10,6 +10,7 @@ public class Cyclo extends Category implements Serializable {
 	// Builder with parameters
 	public Cyclo() {
 		super.setCategoryNumber(3);
+		super.setCategoryName("Cyclo");
 	}
     
     

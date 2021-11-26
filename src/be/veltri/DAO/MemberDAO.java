@@ -1,9 +1,12 @@
 package be.veltri.DAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import be.veltri.POJO.Member;
+import be.veltri.POJO.Person;
 
 public class MemberDAO extends DAO<Member>{
 
@@ -25,8 +28,24 @@ public class MemberDAO extends DAO<Member>{
 
 	@Override
 	public boolean update(Member obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			int result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeUpdate("UPDATE Person "
+							+ "SET name_Person = '" + obj.getName()  + "', "
+							+ "firstname_Person = '" + obj.getFirstname()  + "', "
+							+ "phone_Person = '" + obj.getFirstname()  + "', "
+							+ "password_Person = '" + obj.getPassword()  + "', "
+							+ "pay_Person = '" + obj.getPay()  + "' "
+							+ "WHERE username_Person = '" + obj.getUsername()+ "'");
+			if(result == 1)
+				return true;
+			else
+				return false;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -43,8 +62,22 @@ public class MemberDAO extends DAO<Member>{
 
 	@Override
 	public ArrayList<Member> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Member> lst_pers = new ArrayList<Member>();
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT username_Person, name_Person, firstname_Person, password_Person, pay_Person "
+							+ "FROM Person WHERE type_Person = 'Member'");
+			while (result.next()) {
+				Member pers = new Member(result.getString("username_Person"), result.getString("name_Person"),
+						result.getString("firstname_Person"), "", result.getString("password_Person"), "Member", result.getInt("pay_Person"));
+				lst_pers.add(pers);
+			}
+			return lst_pers;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

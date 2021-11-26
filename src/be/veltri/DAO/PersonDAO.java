@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import be.veltri.POJO.Person;
+import be.veltri.POJO.Registration;
 
 public class PersonDAO extends DAO<Person> {
 
@@ -100,8 +101,8 @@ public class PersonDAO extends DAO<Person> {
 				int id = result.getInt(1);
 				try {
 					this.connect.createStatement()
-							.executeUpdate("INSERT INTO Category_Person (id_Person, id_Category) VALUES ('"
-									+ id + "' , '" + category_Number + "')");
+							.executeUpdate("INSERT INTO Category_Person (id_Person, id_Category) VALUES ('" + id
+									+ "' , '" + category_Number + "')");
 					return true;
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -115,13 +116,8 @@ public class PersonDAO extends DAO<Person> {
 		}
 	}
 
-	public ArrayList<Person> getAll(Person obj) {
-		return null;
-	}
-
 	@Override
 	public ArrayList<Person> getAll() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

@@ -197,7 +197,7 @@ public class DriverAvailability extends JFrame {
 		lbl_bikeNeed.setBounds(371, 376, 230, 27);
 		contentPane.add(lbl_bikeNeed);
 
-		JLabel lbl_bikeNeedValue = new JLabel("");
+		JLabel lbl_bikeNeedValue = new JLabel("0");
 		lbl_bikeNeedValue.setForeground(Color.RED);
 		int nbr_place_bike = 0;
 		if (lst.size() != 0) {

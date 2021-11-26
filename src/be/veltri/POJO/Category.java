@@ -1,6 +1,7 @@
 package be.veltri.POJO;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import be.veltri.DAO.AbstractDAOFactory;
 import be.veltri.DAO.DAO;
@@ -10,6 +11,7 @@ public abstract class Category implements Serializable {
 	// Parameters
 	private static final long serialVersionUID = -9155000318506050985L;
 	private int categoryNumber;
+	private String categoryName;
 	private Calendar calendar;
 
     private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
@@ -19,8 +21,9 @@ public abstract class Category implements Serializable {
     	setCalendar(new Calendar());
     }
 
-	public Category(int categoryNumber) {
+	public Category(int categoryNumber, String categoryName) {
 		this.categoryNumber = categoryNumber;
+		this.categoryName = categoryName;
 	}
 
 	// Getters and Setters 
@@ -36,6 +39,20 @@ public abstract class Category implements Serializable {
 	}
 	public void setCalendar(Calendar calendar) {
 		this.calendar = calendar;
+	}
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+	
+	// Methods
+	public ArrayList<Category> getAllById(int id){
+		ArrayList<Category> lst_cat = categoryDAO.getAllById(id);
+		return lst_cat;
 	}
     
     

@@ -10,8 +10,8 @@ public abstract class VTT extends Category implements Serializable{
 	// Builder with and without parameters
 	public VTT() {}
 
-	public VTT(int categoryNumber) {
-		super(categoryNumber);
+	public VTT(int categoryNumber, String categoryName) {
+		super(categoryNumber, categoryName);
 	}
 	
 	
