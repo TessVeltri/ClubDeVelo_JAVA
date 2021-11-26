@@ -92,13 +92,13 @@ public class MemberHome extends JFrame {
 
 		Walk w = new Walk();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		int i = 1;
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		Date now = new Date();
 		for (Walk walk : w.getAll()) {
 			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
-				Object[] row = new Object[] { i++, walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
+				
+				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
 						walk.getPlaceDeparture(), walk.getDescription_walk() };
 				model.addRow(row);
 			}
@@ -148,6 +148,7 @@ public class MemberHome extends JFrame {
 					String walk_cat = model.getValueAt(index, 1).toString();
 					String walk_date_tmp = model.getValueAt(index, 2).toString();
 					String walk_dep = model.getValueAt(index, 3).toString();
+					String walk_desc = model.getValueAt(index, 4).toString();
 					Date walk_date = null;
 					try {
 						walk_date = new SimpleDateFormat("dd-MM-yyyy").parse(walk_date_tmp);
@@ -155,10 +156,10 @@ public class MemberHome extends JFrame {
 						e1.printStackTrace();
 					}
 					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
-					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
+					Walk walk_to_pass = new Walk(walk_dep, w_date, walk_desc, walk_cat, 0);
 					
 					setVisible(false);
-					RegistrationToWalk rw = new RegistrationToWalk(number, walk_to_pass);
+					RegistrationToWalk rw = new RegistrationToWalk(walk_to_pass, member);
 					rw.setVisible(true);
 				}
 			}

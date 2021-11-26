@@ -15,8 +15,16 @@ public class RegistrationDAO extends DAO<Registration> {
 
 	@Override
 	public boolean create(Registration obj) {
-		// TODO Auto-generated method stub
-		return false;
+		try {
+			this.connect.createStatement().executeUpdate(
+					"INSERT INTO Registration(driver_registration, passenger_Registration, bike_Registration, id_Person, id_Walk "
+							+ ") Values('" + obj.isDriver() + "', '" + obj.isPassenger() + "', '" + obj.isBike()
+							+ "', '" + obj.getId_person() + "', '" + obj.getId_walk() + "')");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
@@ -37,8 +45,20 @@ public class RegistrationDAO extends DAO<Registration> {
 
 	@Override
 	public Registration find(Registration obj) {
-		// TODO Auto-generated method stub
-		return null;
+		Registration rg = null;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT * FROM Registration WHERE id_person = '" + obj.getId_person()+ "' AND id_Walk = '"
+							+ obj.getId_walk() + "'");
+			if (result.first()) {
+				rg = new Registration ();
+			}
+			return rg;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override
@@ -90,8 +110,9 @@ public class RegistrationDAO extends DAO<Registration> {
 		int count = 0;
 		try {
 			ResultSet result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
-							"SELECT COUNT(*) FROM Registration WHERE passenger_Registration = 1 AND id_Walk = '" + id + "'");
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT COUNT(*) FROM Registration WHERE passenger_Registration = 1 AND id_Walk = '"
+							+ id + "'");
 			if (result.first()) {
 				count = result.getInt(1);
 			}

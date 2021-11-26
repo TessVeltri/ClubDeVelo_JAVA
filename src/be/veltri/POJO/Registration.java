@@ -13,17 +13,27 @@ public class Registration implements Serializable {
 	private boolean driver = false;
 	private boolean passenger = false;
 	private boolean bike = false;
+	private int id_person;
+	private int id_walk;
 	
 	private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Registration> registrationDAO = dao.getRegistrationDAO();
 
 	// Builder with and without parameters
 	public Registration() {}
-
+	
 	public Registration(boolean driver, boolean passenger, boolean bike) {
 		this.driver = driver;
 		this.passenger = passenger;
 		this.bike = bike;
+	}
+
+	public Registration(boolean driver, boolean passenger, boolean bike, int id_person, int id_walk) {
+		this.driver = driver;
+		this.passenger = passenger;
+		this.bike = bike;
+		this.id_person = id_person;
+		this.id_walk = id_walk;
 	}
 
 	// Getters and Setters
@@ -48,7 +58,22 @@ public class Registration implements Serializable {
 	public void setDriver(boolean driver) {
 		this.driver = driver;
 	}
-	
+
+	public int getId_person() {
+		return id_person;
+	}
+
+	public void setId_person(int id_person) {
+		this.id_person = id_person;
+	}
+
+	public int getId_walk() {
+		return id_walk;
+	}
+
+	public void setId_walk(int id_walk) {
+		this.id_walk = id_walk;
+	}
 	// Methods
 	
 	public ArrayList<Registration> getAllById(int id){
@@ -70,6 +95,16 @@ public class Registration implements Serializable {
 		ArrayList<String> lst_reg = registrationDAO.getDriver(id);
 		return lst_reg;
 	}
+	
+	public boolean create () {
+		boolean create = registrationDAO.create(this);
+		return create;
+	}
+	public Registration find () {
+		Registration find = registrationDAO.find(this);
+		return find;
+	}
+
 	
     
 }

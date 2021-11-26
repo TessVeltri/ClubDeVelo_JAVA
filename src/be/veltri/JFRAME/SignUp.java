@@ -267,7 +267,6 @@ public class SignUp extends JFrame {
 
 					if (register && register2) {
 						JOptionPane.showMessageDialog(null, "Great ! Your sign up is done ");
-						setVisible(false);
 						Connection conn = new Connection();
 						conn.setVisible(true);
 						dispose();

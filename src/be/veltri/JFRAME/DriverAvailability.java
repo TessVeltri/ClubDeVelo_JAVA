@@ -2,6 +2,7 @@ package be.veltri.JFRAME;
 
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -16,17 +17,20 @@ import be.veltri.POJO.Registration;
 import be.veltri.POJO.Walk;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
+import java.awt.Color;
 
 public class DriverAvailability extends JFrame {
 
 	private static final long serialVersionUID = 6430147029916977881L;
 	private JPanel contentPane;
 	private JTable table;
+	private JLabel image;
 
 	/**
 	 * Launch the application.
@@ -172,12 +176,14 @@ public class DriverAvailability extends JFrame {
 		contentPane.add(lbl_passNeed);
 
 		JLabel lbl_passNeedValue = new JLabel("0");
+		lbl_passNeedValue.setForeground(Color.RED);
 		int nbr_place_pass = 0;
 		if (lst.size() != 0) {
 			nbr_place_pass = Integer.parseInt(lst.get(3));
 		}
 		int nbr_pass = Integer.parseInt(lbl_passCountValue.getText());
 		if ((nbr_pass - nbr_place_pass) < 0) {
+			lbl_passNeedValue.setForeground(Color.BLACK);
 			lbl_passNeedValue.setText("0");
 		} else {
 			lbl_passNeedValue.setText("" + (nbr_pass - nbr_place_pass));
@@ -192,12 +198,14 @@ public class DriverAvailability extends JFrame {
 		contentPane.add(lbl_bikeNeed);
 
 		JLabel lbl_bikeNeedValue = new JLabel("");
+		lbl_bikeNeedValue.setForeground(Color.RED);
 		int nbr_place_bike = 0;
 		if (lst.size() != 0) {
 			nbr_place_bike = Integer.parseInt(lst.get(4));
 		}
 		int nbr_bike = Integer.parseInt(lbl_bikeCountValue.getText());
 		if ((nbr_bike - nbr_place_bike) < 0) {
+			lbl_bikeNeedValue.setForeground(Color.BLACK);
 			lbl_bikeNeedValue.setText("0");
 		} else {
 			lbl_bikeNeedValue.setText("" + (nbr_bike - nbr_place_bike));
@@ -205,5 +213,11 @@ public class DriverAvailability extends JFrame {
 		lbl_bikeNeedValue.setFont(new Font("Serif", Font.PLAIN, 20));
 		lbl_bikeNeedValue.setBounds(574, 376, 59, 27);
 		contentPane.add(lbl_bikeNeedValue);
+		
+		image = new JLabel("");
+		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		image.setIcon(new ImageIcon(img3));
+		image.setBounds(-24, 0, 700, 500);
+		getContentPane().add(image);
 	}
 }
