@@ -156,6 +156,7 @@ public class TreasurerHome extends JFrame {
 					String walk_cat = model.getValueAt(index, 1).toString();
 					String walk_date_tmp = model.getValueAt(index, 2).toString();
 					String walk_dep = model.getValueAt(index, 3).toString();
+					String walk_desc = model.getValueAt(index, 4).toString();
 					Date walk_date = null;
 					try {
 						walk_date = new SimpleDateFormat("dd-MM-yyyy").parse(walk_date_tmp);
@@ -163,10 +164,10 @@ public class TreasurerHome extends JFrame {
 						e1.printStackTrace();
 					}
 					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
-					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
+					Walk walk_to_pass = new Walk(walk_dep, w_date, walk_desc, walk_cat, 0);
 					
 					setVisible(false);
-					PassengerPayment rw = new PassengerPayment(walk_to_pass);
+					PassengerPayments rw = new PassengerPayments(treasurer, walk_to_pass);
 					rw.setVisible(true);
 				}
 			}

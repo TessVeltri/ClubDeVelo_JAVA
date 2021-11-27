@@ -40,4 +40,6 @@ public abstract class DAO<T> {
 
 	public abstract ArrayList<String> getDriverForPay (int id);
 	
+	public abstract ArrayList<String> getPassenger (int id);
+	
 }

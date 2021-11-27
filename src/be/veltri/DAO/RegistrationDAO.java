@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Person;
 import be.veltri.POJO.Registration;
 
 public class RegistrationDAO extends DAO<Registration> {
@@ -188,5 +189,31 @@ public class RegistrationDAO extends DAO<Registration> {
 			return null;
 		}
 	}
+
+	@Override
+	public ArrayList<String> getPassenger(int id) {
+		ArrayList<String> lst_passenger = new ArrayList<String>();
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT name_Person, firstname_Person, Walk.id_Walk, Walk.forfeit_Walk "
+									+ "FROM Registration "
+									+ "INNER JOIN Person ON Person.id_Person = Registration.id_Person "
+									+ "INNER JOIN Walk on Walk.id_Walk = Registration.id_Walk "
+									+ "WHERE passenger_Registration = 1 AND id_Walk = '" + id + "'");
+			while(result.next())
+			{
+				lst_passenger.add(result.getString("name_Person"));
+				lst_passenger.add(result.getString("firstname_Person"));
+				lst_passenger.add(result.getString("id_Walk"));
+				lst_passenger.add(result.getString("forfeit_Walk"));
+			}
+			return lst_passenger;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
 
 }
