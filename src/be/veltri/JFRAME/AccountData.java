@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -26,6 +25,7 @@ import be.veltri.POJO.Trialist;
 
 public class AccountData extends JFrame {
 
+	private static final long serialVersionUID = 8720014732492671076L;
 	private JPanel contentPane;
 	private JLabel image;
 

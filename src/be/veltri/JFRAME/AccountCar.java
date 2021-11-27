@@ -1,27 +1,26 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import be.veltri.POJO.Car;
 import be.veltri.POJO.Person;
-import be.veltri.POJO.Walk;
 
 public class AccountCar extends JFrame {
 
+	private static final long serialVersionUID = 1224965392499452783L;
 	private JPanel contentPane;
 	private JLabel image;
 
@@ -123,6 +122,28 @@ public class AccountCar extends JFrame {
 		} else {
 			btn_addCar.setEnabled(true);
 		}
+		
+		JButton btn_delete = new JButton("");
+		btn_delete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Car car = new Car();
+				car = car.find(person.findId());
+				if(car != null) {
+					car.delete();
+					JOptionPane.showMessageDialog(null, "Your car has been deleted");
+					lbl_carValue.setText("Car name : ");
+					btn_addCar.setEnabled(true);
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "No car found");
+				}
+			}
+		});
+		Image img = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/delete_logo.jpg")).getImage();
+		btn_delete.setIcon(new ImageIcon(img));
+		btn_delete.setBounds(585, 166, 50, 50);
+		contentPane.add(btn_delete);
+		
 		image = new JLabel("");
 		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));

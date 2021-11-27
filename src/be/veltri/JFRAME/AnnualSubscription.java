@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -9,21 +8,20 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import be.veltri.POJO.Member;
-import be.veltri.POJO.Person;
 import be.veltri.POJO.Treasurer;
-import be.veltri.POJO.Walk;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class AnnualSubscription extends JFrame {
@@ -31,6 +29,7 @@ public class AnnualSubscription extends JFrame {
 	private static final long serialVersionUID = 2714514835151823763L;
 	private JPanel contentPane;
 	private JTable table;
+	private JLabel image;
 
 	/**
 	 * Launch the application.
@@ -118,5 +117,10 @@ public class AnnualSubscription extends JFrame {
 		btn_back.setBounds(444, 381, 205, 32);
 		contentPane.add(btn_back);
 		
+		image = new JLabel("");
+		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		image.setIcon(new ImageIcon(img3));
+		image.setBounds(-24, 0, 700, 500);
+		getContentPane().add(image);
 	}
 }

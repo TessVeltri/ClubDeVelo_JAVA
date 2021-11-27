@@ -89,4 +89,16 @@ public class TreasurerDAO extends DAO<Treasurer>{
 		return null;
 	}
 
+	@Override
+	public ArrayList<String> getDriverForPay(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getPassenger(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

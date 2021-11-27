@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -8,7 +7,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import be.veltri.POJO.Person;
-import be.veltri.POJO.Walk;
 
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -18,7 +16,6 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class Account extends JFrame {

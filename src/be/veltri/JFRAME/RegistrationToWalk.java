@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import be.veltri.POJO.Car;
 import be.veltri.POJO.Member;
 import be.veltri.POJO.Registration;
 import be.veltri.POJO.Walk;
@@ -226,10 +227,15 @@ public class RegistrationToWalk extends JFrame {
 
 				boolean verif = false;
 				Registration rg = new Registration(driver, passenger, bike, idP, idW);
+				Car car = new Car() ;
 				if (driver == true && passenger == true) {
 					JOptionPane.showMessageDialog(null, "You can't be driver and passenger at the same time");
 					verif = false;
-				} else {
+				} else if (driver && car.find(member.findId()) == null) {
+					JOptionPane.showMessageDialog(null, "You can't be driver and don't have a car");
+					verif = false;
+				}
+				else {
 					verif = true;
 				}
 

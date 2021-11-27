@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 
@@ -18,7 +17,6 @@ import java.awt.Font;
 import java.awt.Image;
 
 import javax.swing.SwingConstants;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -137,7 +135,6 @@ public class CalculateForfeit extends JFrame {
 				} else if(forfait != 20 && forfait !=25 && forfait!=30 && forfait !=35 ){
 					JOptionPane.showMessageDialog(null, "You cannot assign this forfeit, choose between 20, 25, 30 or 35");
 				} else{
-					// Affecter la valeur à la personne
 					float forfait_f = (float) forfait;
 					member.setPay(forfait_f);
 					member.update();

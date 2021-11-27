@@ -1,6 +1,6 @@
 package be.veltri.JFRAME;
 
-import java.awt.EventQueue;
+import java.awt.EventQueue; 
 import java.awt.Font;
 import java.awt.Image;
 

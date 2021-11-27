@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -16,19 +15,23 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
 import java.awt.Font;
+import java.awt.Image;
 import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class PassengerPayments extends JFrame {
 
+	private static final long serialVersionUID = -7206112908319678669L;
 	private JPanel contentPane;
 	private JTable table;
+	private JLabel image;
 
 	/**
 	 * Launch the application.
@@ -98,7 +101,12 @@ public class PassengerPayments extends JFrame {
 		btn_back.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_back.setBounds(457, 390, 205, 32);
 		contentPane.add(btn_back);
-		
+
+		image = new JLabel("");
+		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		image.setIcon(new ImageIcon(img3));
+		image.setBounds(-24, 0, 700, 500);
+		getContentPane().add(image);
 	}
 
 }

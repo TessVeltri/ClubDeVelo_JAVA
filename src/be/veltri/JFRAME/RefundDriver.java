@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout; 
 import java.awt.EventQueue;
 import java.awt.Image;
 
@@ -118,12 +117,11 @@ public class RefundDriver extends JFrame {
 		btn_back.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_back.setBounds(457, 371, 205, 32);
 		contentPane.add(btn_back);
-		
 
-//		image = new JLabel("");
-//		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
-//		image.setIcon(new ImageIcon(img3));
-//		image.setBounds(-24, 0, 700, 500);
-//		getContentPane().add(image);
+		image = new JLabel("");
+		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		image.setIcon(new ImageIcon(img3));
+		image.setBounds(-24, 0, 700, 500);
+		getContentPane().add(image);
 	}
 }

@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -27,6 +26,7 @@ import java.awt.event.ActionEvent;
 
 public class AddCar extends JFrame {
 
+	private static final long serialVersionUID = 5303879358888777949L;
 	private JPanel contentPane;
 	private JTextField txtcarName;
 	private JTextField txtNbrPassenger;

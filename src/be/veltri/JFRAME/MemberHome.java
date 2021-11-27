@@ -1,6 +1,6 @@
 package be.veltri.JFRAME;
 
-import java.awt.EventQueue; 
+import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,7 +16,9 @@ import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import be.veltri.POJO.Category;
 import be.veltri.POJO.Member;
+import be.veltri.POJO.Trialist;
 import be.veltri.POJO.Walk;
 
 import javax.swing.JScrollPane;
@@ -25,7 +27,8 @@ import javax.swing.JTable;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.awt.event.ActionEvent;
 
@@ -82,13 +85,20 @@ public class MemberHome extends JFrame {
 		contentPane.add(btn_account);
 
 		JScrollPane walkList = new JScrollPane();
-		walkList.setBounds(41, 112, 305, 274);
+		walkList.setBounds(41, 112, 387, 290);
 		contentPane.add(walkList);
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "N°", "Walk category", "Walk date", "Walk departure", "Description" }));
 
+		Category c = new Trialist();
+		ArrayList<Category> lst_cat = c.getAllById(member.findId());
+		ArrayList<String> list_cat_str = new ArrayList<String>();
+		for (Category str : lst_cat) {
+			list_cat_str.add(str.getCategoryName());
+		}
+		
 		Walk w = new Walk();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		String pattern = "dd-MM-yyyy";
@@ -96,10 +106,12 @@ public class MemberHome extends JFrame {
 		Date now = new Date();
 		for (Walk walk : w.getAll()) {
 			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
-				
-				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
-						walk.getPlaceDeparture(), walk.getDescription_walk() };
-				model.addRow(row);
+				if(list_cat_str.contains(walk.getCategory_walk()))
+				{
+					Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
+							walk.getPlaceDeparture(), walk.getDescription_walk() };
+					model.addRow(row);
+				}
 			}
 		}
 		walkList.setViewportView(table);
@@ -132,7 +144,7 @@ public class MemberHome extends JFrame {
 			}
 		}});
 		btn_driverA.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_driverA.setBounds(420, 215, 205, 32);
+		btn_driverA.setBounds(456, 170, 205, 32);
 		contentPane.add(btn_driverA);
 
 		JButton btn_signWalk = new JButton("Sign up for a walk");
@@ -164,7 +176,7 @@ public class MemberHome extends JFrame {
 			}
 		});
 		btn_signWalk.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_signWalk.setBounds(420, 258, 205, 32);
+		btn_signWalk.setBounds(456, 232, 205, 32);
 		contentPane.add(btn_signWalk);
 
 		JButton btn_logOut = new JButton("");

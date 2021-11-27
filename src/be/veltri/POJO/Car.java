@@ -102,6 +102,10 @@ public class Car implements Serializable {
 		boolean create = carDAO.create(this);
 		return create;
 	}
-
+	
+	public boolean delete() {
+		boolean delete = carDAO.delete(this);
+		return delete;
+	}
 
 }

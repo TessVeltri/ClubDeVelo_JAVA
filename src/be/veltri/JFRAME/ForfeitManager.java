@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -10,8 +9,6 @@ import javax.swing.table.DefaultTableModel;
 
 import be.veltri.POJO.Manager;
 import be.veltri.POJO.Member;
-import be.veltri.POJO.Person;
-import be.veltri.POJO.Walk;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -24,10 +21,7 @@ import javax.swing.JTable;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.awt.event.ActionEvent;
 
 public class ForfeitManager extends JFrame {

@@ -28,7 +28,17 @@ public class CarDAO extends DAO<Car> {
 	}
 
 	public boolean delete(Car obj) {
-		return false;
+		try {
+			int result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeUpdate("DELETE FROM Car WHERE id_Person = '"+ obj.getId_person() + "'");
+			
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
 	}
 
 	public boolean update(Car obj) {
@@ -100,6 +110,18 @@ public class CarDAO extends DAO<Car> {
 
 	@Override
 	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getDriverForPay(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getPassenger(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

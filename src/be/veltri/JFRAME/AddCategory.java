@@ -1,6 +1,5 @@
 package be.veltri.JFRAME;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
@@ -30,6 +29,7 @@ import java.awt.event.ActionEvent;
 
 public class AddCategory extends JFrame {
 
+	private static final long serialVersionUID = -2151462914389056454L;
 	private JPanel contentPane;
 	private JLabel image;
 
@@ -144,12 +144,10 @@ public class AddCategory extends JFrame {
 		btn_validate.setBounds(416, 370, 205, 32);
 		contentPane.add(btn_validate);
 		
-		
-		
-//		image = new JLabel("");
-//		Image img3 = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
-//		image.setIcon(new ImageIcon(img3));
-//		image.setBounds(-24, 0, 700, 500);
-//		getContentPane().add(image);
+		image = new JLabel("");
+		Image img3 = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		image.setIcon(new ImageIcon(img3));
+		image.setBounds(-24, 0, 700, 500);
+		getContentPane().add(image);
 	}
 }
