@@ -54,6 +54,11 @@ public abstract class Category implements Serializable {
 		ArrayList<Category> lst_cat = categoryDAO.getAllById(id);
 		return lst_cat;
 	}
+	
+	public int findId() {
+		int find = categoryDAO.findId(this);
+		return find;
+	}
     
     
 

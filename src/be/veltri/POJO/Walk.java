@@ -117,6 +117,12 @@ public class Walk implements Serializable {
 		return lst_walk;
     }
     
+    public ArrayList<Walk> getAllById(int id) {
+    	ArrayList<Walk> lst_walk = new ArrayList<Walk>();
+		lst_walk = walkDAO.getAllById(id);
+		return lst_walk;
+    }
+    
     public int findId() {
     	int id = walkDAO.findId(this);
     	return id;

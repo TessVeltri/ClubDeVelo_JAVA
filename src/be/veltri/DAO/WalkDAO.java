@@ -18,8 +18,8 @@ public class WalkDAO extends DAO<Walk> {
 		try {
 			this.connect.createStatement().executeUpdate(
 					"INSERT INTO Walk(placeDeparture_Walk, dateDeparture_Walk, description_Walk, category_Walk, forfeit_Walk) "
-					+ "Values('" + obj.getPlaceDeparture() + "', '" + obj.getDateDeparture() + "', '" + obj.getDescription_walk() + "', '"
-							+ obj.getCategory_walk() + "', '0')");
+							+ "Values('" + obj.getPlaceDeparture() + "', '" + obj.getDateDeparture() + "', '"
+							+ obj.getDescription_walk() + "', '" + obj.getCategory_walk() + "', '0')");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -105,8 +105,24 @@ public class WalkDAO extends DAO<Walk> {
 
 	@Override
 	public ArrayList<Walk> getAllById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Walk> lst_walks = new ArrayList<Walk>();
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT placeDeparture_Walk, dateDeparture_Walk, description_Walk, category_Walk, "
+							+ "forfeit_Walk FROM Walk INNER JOIN Registration reg ON reg.id_Walk = Walk.id_Walk WHERE reg.id_Person = "
+							+ id + " ORDER BY Walk.id_Walk");
+			while (result.next()) {
+				Walk walk = new Walk(result.getString("placeDeparture_Walk"), result.getDate("dateDeparture_Walk"),
+						result.getString("description_Walk"), result.getString("category_Walk"),
+						result.getInt("forfeit_Walk"));
+				lst_walks.add(walk);
+			}
+			return lst_walks;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

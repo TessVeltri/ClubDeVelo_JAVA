@@ -1,21 +1,28 @@
 package be.veltri.JFRAME;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import be.veltri.POJO.Category;
 import be.veltri.POJO.Person;
+import be.veltri.POJO.Trialist;
 
 public class AccountData extends JFrame {
 
@@ -97,18 +104,70 @@ public class AccountData extends JFrame {
 		
 		JLabel lbl_catTitle = new JLabel("Your categories : ");
 		lbl_catTitle.setFont(new Font("Serif", Font.PLAIN, 20));
-		lbl_catTitle.setBounds(290, 148, 299, 42);
+		lbl_catTitle.setBounds(291, 262, 299, 42);
 		contentPane.add(lbl_catTitle);
 		
-		JLabel lbl_lstCat = new JLabel("");
-		lbl_lstCat.setFont(new Font("Serif", Font.PLAIN, 20));
-		lbl_lstCat.setBounds(290, 201, 364, 42);
-		contentPane.add(lbl_lstCat);
+		JTextArea categoriesArea = new JTextArea();
+		categoriesArea.setEditable(false);
+		categoriesArea.setFont(new Font("Serif", Font.PLAIN, 12));
+		Category cat = new Trialist();
+		ArrayList<Category> lst_cat = new ArrayList<Category>();
+		lst_cat = cat.getAllById(person.findId());
+
+		if (lst_cat.size() != 0) {
+			categoriesArea.setColumns(1);
+			categoriesArea.setRows(lst_cat.size());
+			for (int i=0 ; i<lst_cat.size(); i++) {
+				categoriesArea.append(lst_cat.get(i).getCategoryName() + ", ");
+			}
+		} 
+		categoriesArea.setBackground(new Color (240,240,240));
+		categoriesArea.setBounds(291, 303, 372, 40);
+		contentPane.add(categoriesArea);
 		
 		JButton btn_addCategory = new JButton("Add a new category");
+		btn_addCategory.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				Category c = new Trialist();
+				ArrayList<Category> lst_cat = c.getAllById(person.findId());
+				
+				ArrayList<String> lst_allCat = new ArrayList<String>(
+						Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
+				ArrayList<String> lst_allCat_tmp = new ArrayList<String>(
+						Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
+				
+				for (String allCat : lst_allCat) {
+					for (Category cat : lst_cat) {
+						if (allCat.equals(cat.getCategoryName())) {
+							lst_allCat_tmp.remove(allCat);
+						}
+					}
+				}
+				if (lst_allCat_tmp.size()==0) {
+					JOptionPane.showMessageDialog(null, "You have already all the categories");			
+				} else {
+					setVisible(false);
+					AddCategory ac = new AddCategory(person);
+					ac.setVisible(true);
+				}
+			}
+		});
 		btn_addCategory.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_addCategory.setBounds(290, 294, 205, 32);
+		btn_addCategory.setBounds(290, 354, 205, 32);
 		contentPane.add(btn_addCategory);
+		
+		JLabel lbl_username = new JLabel("Username : ");
+		lbl_username.setText("Username : " + person.getUsername());
+		lbl_username.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_username.setBounds(291, 156, 372, 42);
+		contentPane.add(lbl_username);
+		
+		JLabel lbl_fullname = new JLabel("Fullname : ");
+		lbl_fullname.setText("Fullname : " + person.getName() + " " + person.getFirstname());
+		lbl_fullname.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_fullname.setBounds(291, 209, 372, 42);
+		contentPane.add(lbl_fullname);
 
 		image = new JLabel("");
 		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
@@ -117,5 +176,4 @@ public class AccountData extends JFrame {
 		getContentPane().add(image);
 		
 	}
-
 }

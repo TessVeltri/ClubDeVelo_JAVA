@@ -67,18 +67,6 @@ public class ManagerHome extends JFrame {
 		lbl_title.setBounds(219, 24, 254, 58);
 		contentPane.add(lbl_title);
 
-		JButton btn_account = new JButton("");
-		btn_account.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Account acc = new Account(manager);
-				acc.setVisible(true);
-			}
-		});
-		Image img = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/user_logo.jpg")).getImage();
-		btn_account.setIcon(new ImageIcon(img));
-		btn_account.setBounds(550, 24, 50, 50);
-		contentPane.add(btn_account);
-
 		JScrollPane walkList = new JScrollPane();
 		walkList.setBounds(41, 112, 305, 274);
 		contentPane.add(walkList);

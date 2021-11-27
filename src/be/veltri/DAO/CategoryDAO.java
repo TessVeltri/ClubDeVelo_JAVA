@@ -12,7 +12,7 @@ import be.veltri.POJO.Hiker;
 import be.veltri.POJO.Registration;
 import be.veltri.POJO.Trialist;
 
-public class CategoryDAO extends DAO<Category>{
+public class CategoryDAO extends DAO<Category> {
 
 	public CategoryDAO(Connection conn) {
 		super(conn);
@@ -44,8 +44,19 @@ public class CategoryDAO extends DAO<Category>{
 
 	@Override
 	public int findId(Category obj) {
-		// TODO Auto-generated method stub
-		return 0;
+		int id = 0;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT id_Category FROM Category WHERE type_Category = '" + obj.getCategoryName() + "'");
+			if (result.first()) {
+				id = result.getInt(1);
+			}
+			return id;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return -1;
+		}
 	}
 
 	@Override
@@ -65,14 +76,14 @@ public class CategoryDAO extends DAO<Category>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 	@Override
 	public ArrayList<Category> getAllById(int id) {
 		ArrayList<Category> lst_cat = new ArrayList<Category>();
 		try {
 			ResultSet result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
-							"SELECT id_Category FROM Category_Person WHERE id_Person = '" + id + "'");
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT id_Category FROM Category_Person WHERE id_Person = '" + id + "'");
 			while (result.next()) {
 				if (result.getInt(1) == 1) {
 					Category cat = new Trialist();
@@ -86,7 +97,7 @@ public class CategoryDAO extends DAO<Category>{
 				} else if (result.getInt(1) == 4) {
 					Category cat = new Cyclo();
 					lst_cat.add(cat);
-				} 
+				}
 			}
 			return lst_cat;
 		} catch (SQLException e) {

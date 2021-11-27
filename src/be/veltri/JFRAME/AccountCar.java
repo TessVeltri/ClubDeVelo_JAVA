@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import be.veltri.POJO.Car;
 import be.veltri.POJO.Person;
 import be.veltri.POJO.Walk;
 
@@ -98,6 +99,13 @@ public class AccountCar extends JFrame {
 		contentPane.add(btn_data);
 		
 		JButton btn_addCar = new JButton("Add a car");
+		btn_addCar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				AddCar ad = new AddCar(person);
+				ad.setVisible(true);
+			}
+		});
 		btn_addCar.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_addCar.setBounds(341, 215, 205, 32);
 		contentPane.add(btn_addCar);
@@ -107,6 +115,14 @@ public class AccountCar extends JFrame {
 		lbl_carValue.setBounds(316, 166, 247, 48);
 		contentPane.add(lbl_carValue);
 		
+		Car car = new Car();
+		car = car.find(person.findId());
+		if ( car != null ) {
+			btn_addCar.setEnabled(false);
+			lbl_carValue.setText("Car name : " + car.getCarName());
+		} else {
+			btn_addCar.setEnabled(true);
+		}
 		image = new JLabel("");
 		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));

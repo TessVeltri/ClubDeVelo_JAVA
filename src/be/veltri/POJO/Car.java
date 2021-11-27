@@ -13,7 +13,7 @@ public class Car implements Serializable {
 	private String carName = "";
 	private int nbrMemberPlace = 0;
 	private int nbrBikePlace = 0;
-	private Person person;
+	private int id_person;
 	private Set<Member> listPassenger = new HashSet<>();
 	private Set<Bike> listBike = new HashSet<>();
 
@@ -22,12 +22,12 @@ public class Car implements Serializable {
     // Builder with and without parameters
     public Car() {}
     
-    public Car(String carName, int nbrMemberPlace, int nbrBikePlace, Person person) {
+    public Car(String carName, int nbrMemberPlace, int nbrBikePlace, int id_person) {
 		super();
 		this.carName = carName;
 		this.nbrMemberPlace = nbrMemberPlace;
 		this.nbrBikePlace = nbrBikePlace;
-		this.person = person;
+		this.id_person = id_person;
 	}
     
     // Getters and Setters
@@ -85,11 +85,23 @@ public class Car implements Serializable {
         this.listBike.remove(bike);
     }
 
-	public Person getPerson() {
-		return person;
+	public int getId_person() {
+		return id_person;
 	}
-	public void setPerson(Person person) {
-		this.person = person;
+	public void setId_person(int id_person) {
+		this.id_person = id_person;
 	}
+
+	// Methods
+	public Car find(int id) {
+		Car car = carDAO.find(id);
+		return car;
+	}
+	
+	public boolean create() {
+		boolean create = carDAO.create(this);
+		return create;
+	}
+
 
 }

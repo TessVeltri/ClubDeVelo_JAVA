@@ -12,7 +12,10 @@ import be.veltri.POJO.Walk;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.Image;
+
 import javax.swing.SwingConstants;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -22,6 +25,7 @@ public class Account extends JFrame {
 
 	private static final long serialVersionUID = 8498594029634789428L;
 	private JPanel contentPane;
+	private JLabel image;
 
 	/**
 	 * Launch the application.
@@ -101,5 +105,11 @@ public class Account extends JFrame {
 		btn_data.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_data.setBounds(28, 288, 205, 32);
 		contentPane.add(btn_data);
+		
+		image = new JLabel("");
+		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		image.setIcon(new ImageIcon(img3));
+		image.setBounds(-24, 0, 700, 500);
+		getContentPane().add(image);
 	}
 }

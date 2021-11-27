@@ -1,26 +1,27 @@
 package be.veltri.DAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import be.veltri.POJO.Car;
+import be.veltri.POJO.Person;
 
-public class CarDAO extends DAO<Car>{
+public class CarDAO extends DAO<Car> {
 
 	public CarDAO(Connection conn) {
 		super(conn);
 	}
 
 	public boolean create(Car obj) {
-		try 
-		{
-			this.connect.createStatement().executeUpdate("INSERT INTO Car(name_Car, nbrMemberPlace, nbrBikePlace)"
-					+ "Values('"+ obj.getCarName() + "', '" + obj.getNbrMemberPlace() + "', '" + obj.getNbrBikePlace() + "')");
+		try {
+			this.connect.createStatement()
+					.executeUpdate("INSERT INTO Car(name_Car, nbrMemberPlace_Car, nbrBikePlace_Car, id_Person)"
+							+ "Values('" + obj.getCarName() + "', '" + obj.getNbrMemberPlace() + "', '"
+							+ obj.getNbrBikePlace() + "', '" + obj.getId_person() + "')");
 			return true;
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -35,7 +36,20 @@ public class CarDAO extends DAO<Car>{
 	}
 
 	public Car find(int id) {
-		return null;
+		Car car = null;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT name_Car, nbrMemberPlace_Car, nbrBikePlace_Car FROM Car WHERE id_Person = '"
+							+ id + "'");
+			if (result.first())
+				car = new Car(result.getString("name_Car"), result.getInt("nbrMemberPlace_Car"),
+						result.getInt("nbrBikePlace_Car"), id);
+			return car;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public Car find(Car obj) {
@@ -89,6 +103,5 @@ public class CarDAO extends DAO<Car>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 }
