@@ -32,7 +32,17 @@ public class WalkDAO extends DAO<Walk> {
 	}
 
 	public boolean update(Walk obj) {
-		return false;
+		try {
+			this.connect.createStatement()
+					.executeUpdate("UPDATE Walk SET forfeit_Walk = '" + obj.getForfeit() + "' WHERE placeDeparture_Walk = '"
+							+ obj.getPlaceDeparture() + "' AND dateDeparture_Walk = '" + obj.getDateDeparture()
+							+ "' AND description_Walk = '" + obj.getDescription_walk() + "' AND category_Walk = '"
+							+ obj.getCategory_walk() + "'");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public Walk find(int id) {
@@ -139,6 +149,12 @@ public class WalkDAO extends DAO<Walk> {
 
 	@Override
 	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getDriverForPay(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

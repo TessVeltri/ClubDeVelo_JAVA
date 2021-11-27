@@ -223,42 +223,51 @@ public class RegistrationToWalk extends JFrame {
 						}
 					}
 				}
-				
+
 				boolean verif = false;
 				Registration rg = new Registration(driver, passenger, bike, idP, idW);
-				if (driver==true && passenger ==true){
+				if (driver == true && passenger == true) {
 					JOptionPane.showMessageDialog(null, "You can't be driver and passenger at the same time");
 					verif = false;
 				} else {
 					verif = true;
 				}
-				
+
 				if (verif) {
-					boolean create = rg.create();
 					Registration check = rg.find();
-					if (create && check == null) {
-						JOptionPane.showMessageDialog(null, "Great ! Your sign up at the walk is done ");
-						MemberHome mh = new MemberHome (member);
-						mh.setVisible(true);
-						dispose();
-					} else if (check != null) {
+					if (check != null) {
 						JOptionPane.showMessageDialog(null, "You are already sign up at this walk");
-						MemberHome mh = new MemberHome (member);
+						MemberHome mh = new MemberHome(member);
 						mh.setVisible(true);
 						dispose();
 					} else {
-						JOptionPane.showMessageDialog(null, "An error has occurred, try again");
+						boolean create = rg.create();
+						if (driver) {
+							// Add 10€ to walk
+							Walk new_walk = new Walk(walk.getPlaceDeparture(), walk.getDateDeparture(),
+									walk.getDescription_walk(), walk.getCategory_walk(), 10);
+							boolean update = walk.update(new_walk);
+						}
+						if (create && check == null) {
+							JOptionPane.showMessageDialog(null, "Great ! Your sign up at the walk is done ");
+							MemberHome mh = new MemberHome(member);
+							mh.setVisible(true);
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(null, "An error has occurred, try again");
+						}
 					}
+					
 				}
-				
+
 			}
 		});
 		btn_validate.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_validate.setBounds(425, 388, 205, 32);
 		contentPane.add(btn_validate);
-		
+
 		image = new JLabel("");
-		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		Image img3 = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));
 		image.setBounds(-24, 0, 700, 500);
 		getContentPane().add(image);

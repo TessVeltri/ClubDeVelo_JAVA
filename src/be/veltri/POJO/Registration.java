@@ -105,6 +105,10 @@ public class Registration implements Serializable {
 		return find;
 	}
 
+	public ArrayList<String> getDriverForPay(int id) {
+		ArrayList<String> lst_reg = registrationDAO.getDriverForPay(id);
+		return lst_reg;
+	}
 	
     
 }

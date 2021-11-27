@@ -137,6 +137,10 @@ public class Walk implements Serializable {
     	boolean create = walkDAO.create(this);
     	return create;
     }
+    public boolean update (Walk walk) {
+    	boolean update = walkDAO.update(walk);
+    	return update;
+    }
 
     
     // TODO Move to Walk DAO

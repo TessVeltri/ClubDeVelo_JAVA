@@ -37,5 +37,7 @@ public abstract class DAO<T> {
 	public abstract int getBikeCount (int id);
 	
 	public abstract ArrayList<String> getDriver (int id);
+
+	public abstract ArrayList<String> getDriverForPay (int id);
 	
 }

@@ -104,6 +104,7 @@ public class AccountWalks extends JFrame {
 		contentPane.add(btn_data);
 
 		JScrollPane walkList = new JScrollPane();
+		walkList.setEnabled(false);
 		walkList.setBounds(329, 144, 282, 250);
 		contentPane.add(walkList);
 

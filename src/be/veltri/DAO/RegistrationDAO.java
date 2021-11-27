@@ -164,4 +164,29 @@ public class RegistrationDAO extends DAO<Registration> {
 		}
 	}
 
+	@Override
+	public ArrayList<String> getDriverForPay(int id) {
+		ArrayList<String> lst_dataDriver = new ArrayList<String>();
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT name_Person, firstname_Person, Walk.id_Walk, Walk.forfeit_Walk "
+									+ "FROM Registration "
+									+ "INNER JOIN Person ON Person.id_Person = Registration.id_Person "
+									+ "INNER JOIN Walk on Walk.id_Walk = Registration.id_Walk "
+									+ "WHERE driver_Registration = 1 AND id_Walk = '" + id + "'");
+			while(result.next())
+			{
+				lst_dataDriver.add(result.getString("name_Person"));
+				lst_dataDriver.add(result.getString("firstname_Person"));
+				lst_dataDriver.add(result.getString("id_Walk"));
+				lst_dataDriver.add(result.getString("forfeit_Walk"));
+			}
+			return lst_dataDriver;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 }

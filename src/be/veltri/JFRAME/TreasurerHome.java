@@ -65,36 +65,23 @@ public class TreasurerHome extends JFrame {
 		lbl_title.setBounds(219, 24, 254, 58);
 		contentPane.add(lbl_title);
 
-		JButton btn_account = new JButton("");
-		btn_account.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Account acc = new Account(treasurer);
-				acc.setVisible(true);
-			}
-		});
-		Image img = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/user_logo.jpg")).getImage();
-		btn_account.setIcon(new ImageIcon(img));
-		btn_account.setBounds(550, 24, 50, 50);
-		contentPane.add(btn_account);
-
 		JScrollPane walkList = new JScrollPane();
 		walkList.setBounds(41, 112, 305, 274);
 		contentPane.add(walkList);
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "N°", "Walk category", "Walk date", "Walk departure" }));
+				new String[] { "N°", "Walk category", "Walk date", "Walk departure", "Walk description" }));
 
 		Walk w = new Walk();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		int i = 1;
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		LocalDateTime now = LocalDateTime.now();
+		Date now = new Date();
 		for (Walk walk : w.getAll()) {
-			if (simpleDateFormat.format(now).compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
-				Object[] row = new Object[] { i++, walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
-						walk.getPlaceDeparture() };
+			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
+				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
+						walk.getPlaceDeparture(), walk.getDescription_walk() };
 				model.addRow(row);
 			}
 		}
@@ -112,6 +99,7 @@ public class TreasurerHome extends JFrame {
 					String walk_cat = model.getValueAt(index, 1).toString();
 					String walk_date_tmp = model.getValueAt(index, 2).toString();
 					String walk_dep = model.getValueAt(index, 3).toString();
+					String walk_desc = model.getValueAt(index, 4).toString();
 					Date walk_date = null;
 					try {
 						walk_date = new SimpleDateFormat("dd-MM-yyyy").parse(walk_date_tmp);
@@ -119,10 +107,10 @@ public class TreasurerHome extends JFrame {
 						e1.printStackTrace();
 					}
 					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
-					Walk walk_to_pass = new Walk(walk_dep, w_date, "", walk_cat, 0);
+					Walk walk_to_pass = new Walk(walk_dep, w_date, walk_desc, walk_cat, 0);
 					
 				setVisible(false);
-				RefundDriver da = new RefundDriver(walk_to_pass);
+				RefundDriver da = new RefundDriver(treasurer, walk_to_pass);
 				da.setVisible(true);
 			}
 		}});
