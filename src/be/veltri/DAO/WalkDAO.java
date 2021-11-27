@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Person;
 import be.veltri.POJO.Walk;
 
 public class WalkDAO extends DAO<Walk> {
@@ -14,7 +15,16 @@ public class WalkDAO extends DAO<Walk> {
 	}
 
 	public boolean create(Walk obj) {
-		return false;
+		try {
+			this.connect.createStatement().executeUpdate(
+					"INSERT INTO Walk(placeDeparture_Walk, dateDeparture_Walk, description_Walk, category_Walk, forfeit_Walk) "
+					+ "Values('" + obj.getPlaceDeparture() + "', '" + obj.getDateDeparture() + "', '" + obj.getDescription_walk() + "', '"
+							+ obj.getCategory_walk() + "', '0')");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public boolean delete(Walk obj) {
@@ -30,7 +40,21 @@ public class WalkDAO extends DAO<Walk> {
 	}
 
 	public Walk find(Walk obj) {
-		return null;
+		Walk walk = new Walk();
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT * FROM Walk WHERE placeDeparture_Walk = '" + obj.getPlaceDeparture()
+							+ "' AND dateDeparture_Walk = '" + obj.getDateDeparture() + "' AND description_Walk = '"
+							+ obj.getDescription_walk() + "' AND category_Walk = '" + obj.getCategory_walk() + "'");
+			if (result.first())
+				walk = new Walk(result.getString("placeDeparture_Walk"), result.getDate("dateDeparture_Walk"),
+						result.getString("description_Walk"), result.getString("category_Walk"), 0);
+			return walk;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public int findId(Walk obj) {
@@ -102,6 +126,5 @@ public class WalkDAO extends DAO<Walk> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 
 }

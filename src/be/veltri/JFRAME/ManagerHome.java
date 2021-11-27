@@ -70,7 +70,6 @@ public class ManagerHome extends JFrame {
 		JButton btn_account = new JButton("");
 		btn_account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
 				Account acc = new Account(manager);
 				acc.setVisible(true);
 			}
@@ -118,7 +117,7 @@ public class ManagerHome extends JFrame {
 		btn_addWalk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				AddWalk addw = new AddWalk();
+				AddWalk addw = new AddWalk(manager);
 				addw.setVisible(true);
 			}
 		});

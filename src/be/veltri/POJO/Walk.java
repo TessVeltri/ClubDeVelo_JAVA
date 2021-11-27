@@ -121,6 +121,16 @@ public class Walk implements Serializable {
     	int id = walkDAO.findId(this);
     	return id;
     }
+    
+    public Walk find () {
+    	Walk walk = walkDAO.find(this);
+    	return walk;
+    }
+    
+    public boolean create () {
+    	boolean create = walkDAO.create(this);
+    	return create;
+    }
 
     
     // TODO Move to Walk DAO

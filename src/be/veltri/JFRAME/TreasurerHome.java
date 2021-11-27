@@ -68,7 +68,6 @@ public class TreasurerHome extends JFrame {
 		JButton btn_account = new JButton("");
 		btn_account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
 				Account acc = new Account(treasurer);
 				acc.setVisible(true);
 			}

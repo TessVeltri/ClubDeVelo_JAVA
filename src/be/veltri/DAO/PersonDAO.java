@@ -20,7 +20,7 @@ public class PersonDAO extends DAO<Person> {
 					"INSERT INTO Person(username_Person, name_Person, firstname_Person, phone_Person, password_Person, "
 							+ "type_Person, pay_Person) Values('" + obj.getUsername() + "', '" + obj.getName() + "', '"
 							+ obj.getFirstname() + "', '" + obj.getPhone() + "', '" + obj.getPassword() + "', '"
-							+ obj.getType() + "', '0')");
+							+ obj.getType() + "', '20')");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();

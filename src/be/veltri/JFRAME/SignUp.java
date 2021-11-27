@@ -27,6 +27,7 @@ import javax.swing.JScrollBar;
 import javax.swing.JComboBox;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.DefaultComboBoxModel;
 
 public class SignUp extends JFrame {
 
@@ -215,6 +216,8 @@ public class SignUp extends JFrame {
 
 		Object[] lst = new Object[] { "Select a category", "VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo" };
 		JComboBox cb_category = new JComboBox(lst);
+		cb_category.setModel(new DefaultComboBoxModel(new String[] {"Select a category", "VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"}));
+		cb_category.setFont(new Font("Serif", Font.PLAIN, 20));
 		cb_category.setBounds(60, 267, 250, 40);
 		getContentPane().add(cb_category);
 
