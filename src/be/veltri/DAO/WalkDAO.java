@@ -159,4 +159,10 @@ public class WalkDAO extends DAO<Walk> {
 		return null;
 	}
 
+	@Override
+	public ArrayList<String> getPassenger(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

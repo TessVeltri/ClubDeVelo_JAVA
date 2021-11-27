@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import be.veltri.POJO.Person;
 import be.veltri.POJO.Registration;
+import be.veltri.POJO.Walk;
 
 public class PersonDAO extends DAO<Person> {
 
@@ -44,9 +45,10 @@ public class PersonDAO extends DAO<Person> {
 		Person person = new Person();
 		try {
 			ResultSet result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT * FROM Person WHERE username_Person = '" + obj.getUsername()
-							+ "' AND password_Person = '" + obj.getPassword() + "'");
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT username_Person, name_Person, firstname_Person, phone_Person, password_Person, "
+									+ "type_Person, pay_Person FROM Person WHERE username_Person = '"
+									+ obj.getUsername() + "' AND password_Person = '" + obj.getPassword() + "'");
 			if (result.first())
 				person = new Person(obj.getUsername(), result.getString("name_Person"),
 						result.getString("firstname_Person"), result.getString("phone_Person"), obj.getPassword(),
@@ -141,6 +143,18 @@ public class PersonDAO extends DAO<Person> {
 
 	@Override
 	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getDriverForPay(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getPassenger(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

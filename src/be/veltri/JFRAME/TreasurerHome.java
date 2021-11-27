@@ -24,6 +24,7 @@ import javax.swing.table.DefaultTableModel;
 
 import be.veltri.POJO.Treasurer;
 import be.veltri.POJO.Walk;
+import java.awt.Color;
 
 public class TreasurerHome extends JFrame {
 
@@ -115,19 +116,19 @@ public class TreasurerHome extends JFrame {
 			}
 		}});
 		btn_refundDriver.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_refundDriver.setBounds(421, 248, 205, 32);
+		btn_refundDriver.setBounds(420, 218, 205, 32);
 		contentPane.add(btn_refundDriver);
 
 		JButton btn_aSub = new JButton("Annual subscription");
 		btn_aSub.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				AnnualSubscription rw = new AnnualSubscription();
+				AnnualSubscription rw = new AnnualSubscription(treasurer);
 				rw.setVisible(true);
 			}
 		});
 		btn_aSub.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_aSub.setBounds(421, 291, 205, 32);
+		btn_aSub.setBounds(420, 261, 205, 32);
 		contentPane.add(btn_aSub);
 
 		JButton btn_logOut = new JButton("");
@@ -173,26 +174,22 @@ public class TreasurerHome extends JFrame {
 			}
 		});
 		btn_paymentPassenger.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_paymentPassenger.setBounds(421, 205, 205, 32);
+		btn_paymentPassenger.setBounds(420, 175, 205, 32);
 		contentPane.add(btn_paymentPassenger);
-		
-		JButton btn_globalForfeit = new JButton("Global forfeit");
-		btn_globalForfeit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				GlobalForfeitTreasurer rw = new GlobalForfeitTreasurer();
-				rw.setVisible(true);
-			}
-		});
-		btn_globalForfeit.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_globalForfeit.setBounds(421, 162, 205, 32);
-		contentPane.add(btn_globalForfeit);
+
+		JLabel lblTreasurerView = new JLabel("Treasurer view");
+		lblTreasurerView.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTreasurerView.setForeground(Color.PINK);
+		lblTreasurerView.setFont(new Font("Serif", Font.PLAIN, 20));
+		lblTreasurerView.setBounds(41, 36, 129, 40);
+		contentPane.add(lblTreasurerView);
 		
 		image = new JLabel("");
 		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));
-		image.setBounds(-24, 0, 700, 500);
+		image.setBounds(-14, 0, 700, 500);
 		getContentPane().add(image);
+		
 	}
 
 }

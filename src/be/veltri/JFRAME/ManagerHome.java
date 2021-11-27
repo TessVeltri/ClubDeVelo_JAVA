@@ -77,13 +77,12 @@ public class ManagerHome extends JFrame {
 
 		Walk w = new Walk();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		int i = 1;
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		Date now = new Date ();
 		for (Walk walk : w.getAll()) {
 			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
-				Object[] row = new Object[] { i++, walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
+				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
 						walk.getPlaceDeparture() };
 				model.addRow(row);
 			}

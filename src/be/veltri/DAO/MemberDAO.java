@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import be.veltri.POJO.Member;
 import be.veltri.POJO.Person;
 
-public class MemberDAO extends DAO<Member>{
+public class MemberDAO extends DAO<Member> {
 
 	public MemberDAO(Connection conn) {
 		super(conn);
@@ -29,16 +29,13 @@ public class MemberDAO extends DAO<Member>{
 	@Override
 	public boolean update(Member obj) {
 		try {
-			int result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeUpdate("UPDATE Person "
-							+ "SET name_Person = '" + obj.getName()  + "', "
-							+ "firstname_Person = '" + obj.getFirstname()  + "', "
-							+ "phone_Person = '" + obj.getFirstname()  + "', "
-							+ "password_Person = '" + obj.getPassword()  + "', "
-							+ "pay_Person = '" + obj.getPay()  + "' "
-							+ "WHERE username_Person = '" + obj.getUsername()+ "'");
-			if(result == 1)
+			int result = this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeUpdate(
+							"UPDATE Person " + "SET name_Person = '" + obj.getName() + "', " + "firstname_Person = '"
+									+ obj.getFirstname() + "', " + "phone_Person = '" + obj.getFirstname() + "', "
+									+ "password_Person = '" + obj.getPassword() + "', " + "pay_Person = '"
+									+ obj.getPay() + "' " + "WHERE username_Person = '" + obj.getUsername() + "'");
+			if (result == 1)
 				return true;
 			else
 				return false;
@@ -66,11 +63,12 @@ public class MemberDAO extends DAO<Member>{
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT username_Person, name_Person, firstname_Person, password_Person, pay_Person "
+					.executeQuery("SELECT username_Person, name_Person, firstname_Person, password_Person, pay_Person, payed "
 							+ "FROM Person WHERE type_Person = 'Member'");
 			while (result.next()) {
 				Member pers = new Member(result.getString("username_Person"), result.getString("name_Person"),
-						result.getString("firstname_Person"), "", result.getString("password_Person"), "Member", result.getInt("pay_Person"));
+						result.getString("firstname_Person"), "", result.getString("password_Person"), "Member",
+						result.getInt("pay_Person"), result.getBoolean("payed"));
 				lst_pers.add(pers);
 			}
 			return lst_pers;
@@ -97,7 +95,7 @@ public class MemberDAO extends DAO<Member>{
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	@Override
 	public ArrayList<Member> getAllById(int id) {
 		// TODO Auto-generated method stub
@@ -118,6 +116,18 @@ public class MemberDAO extends DAO<Member>{
 
 	@Override
 	public ArrayList<String> getDriver(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getDriverForPay(int id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<String> getPassenger(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
