@@ -17,7 +17,6 @@ public class Person implements Serializable{
     private String phone = "";
     private String password = "";
     private String type = "";
-    private Set<Category> categories = new HashSet<>();
     
     private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Person> personDAO = dao.getPersonDAO();
@@ -79,24 +78,7 @@ public class Person implements Serializable{
 		this.type = type;
 	}
 
-	public Set<Category> getCategories() {
-		return categories;
-	}
-
-	public void setCategories(Set<Category> categories) {
-		this.categories = categories;
-	}
-	
 	// Methods
-	public void addCategory(Category cat) {
-		if(!categories.contains(cat))
-			categories.add(cat);
-    }
-	
-    public void deleteCategory(Category cat) {
-        this.categories.remove(cat);
-    }
-    
 	public Person find () {
 		Person person = personDAO.find(this);
 		return person;

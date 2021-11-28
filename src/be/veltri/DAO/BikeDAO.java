@@ -1,12 +1,14 @@
 package be.veltri.DAO;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import be.veltri.POJO.Bike;
+import be.veltri.POJO.Car;
 
-public class BikeDAO extends DAO<Bike>{
+public class BikeDAO extends DAO<Bike> {
 
 	public BikeDAO(Connection conn) {
 		super(conn);
@@ -14,21 +16,27 @@ public class BikeDAO extends DAO<Bike>{
 
 	@Override
 	public boolean create(Bike obj) {
-		try 
-		{
-			this.connect.createStatement().executeUpdate("INSERT INTO Bike(weight_Bike, type_Bike, lenght_Bike)"
-					+ "Values('"+ obj.getWeight() + "', '" + obj.getType() + "', '" + obj.getLength() + "')");
+		try {
+			this.connect.createStatement()
+					.executeUpdate("INSERT INTO Bike(weight_Bike, type_Bike, lenght_Bike, id_Person)" + "Values('"
+							+ obj.getWeight() + "', '" + obj.getType() + "', '" + obj.getLength() + "', '"
+							+ obj.getId_person() + "')");
 			return true;
-		}
-		catch (SQLException e)
-		{
+		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
 	}
-	
+
 	public boolean delete(Bike obj) {
-		return false;
+		try {
+			this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeUpdate("DELETE FROM Bike WHERE id_Person = '" + obj.getId_person() + "'");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public boolean update(Bike obj) {
@@ -36,7 +44,19 @@ public class BikeDAO extends DAO<Bike>{
 	}
 
 	public Bike find(int id) {
-		return null;
+		Bike bike = null;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeQuery("SELECT weight_Bike, type_Bike, lenght_Bike FROM Bike WHERE id_Person = '"
+							+ id + "'");
+			if (result.first())
+				bike = new Bike(result.getInt("weight_Bike"), result.getString("type_Bike"), result.getInt("lenght_Bike"), id);
+			return bike;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	public Bike find(Object o) {
@@ -107,6 +127,5 @@ public class BikeDAO extends DAO<Bike>{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 }

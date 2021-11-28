@@ -36,8 +36,19 @@ public class RegistrationDAO extends DAO<Registration> {
 
 	@Override
 	public boolean update(Registration obj) {
-		// TODO Auto-generated method stub
-		return false;
+		Registration rg = null;
+		try {
+			int result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeUpdate("UPDATE Registration "
+							+ "SET driver_Registration = '" + obj.isDriver() + "', "
+							+ "passenger_Registration = '"+ obj.isPassenger() +"' "
+							+ "WHERE id_Person = '" + obj.getId_person() + "' AND id_Walk = '" + obj.getId_walk() + "'");
+			return true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	public Registration find(int id) {

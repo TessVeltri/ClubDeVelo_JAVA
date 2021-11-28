@@ -18,19 +18,5 @@ public class Treasurer extends Person implements Serializable{
     public Treasurer(String username, String name, String firstname, String phone, String password, String type) {
 		super(username, name, firstname, phone, password, type);
 	}
-    
-    // TODO Move to Treasure DAO
-
-//	public void SendReminderLetter() {
-//        // TODO implement here
-//    }
-//
-//    public void PayDriver() {
-//        // TODO implement here
-//    }
-//
-//    public void ClaimForfeit() {
-//        // TODO implement here
-//    }
 
 }

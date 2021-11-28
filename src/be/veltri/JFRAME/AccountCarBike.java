@@ -15,10 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import be.veltri.POJO.Bike;
 import be.veltri.POJO.Car;
 import be.veltri.POJO.Person;
 
-public class AccountCar extends JFrame {
+public class AccountCarBike extends JFrame {
 
 	private static final long serialVersionUID = 1224965392499452783L;
 	private JPanel contentPane;
@@ -43,7 +44,7 @@ public class AccountCar extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public AccountCar(Person person) {
+	public AccountCarBike(Person person) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 700, 500);
 		contentPane = new JPanel();
@@ -51,7 +52,7 @@ public class AccountCar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lbl_title = new JLabel("Your car");
+		JLabel lbl_title = new JLabel("Your car and your bike");
 		lbl_title.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_title.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 40));
 		lbl_title.setBounds(123, 34, 440, 58);
@@ -79,7 +80,7 @@ public class AccountCar extends JFrame {
 		btn_walks.setBounds(28, 166, 205, 32);
 		contentPane.add(btn_walks);
 		
-		JButton btn_car = new JButton("Your car");
+		JButton btn_car = new JButton("Your car and bike");
 		btn_car.setEnabled(false);
 		btn_car.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_car.setBounds(28, 227, 205, 32);
@@ -123,8 +124,8 @@ public class AccountCar extends JFrame {
 			btn_addCar.setEnabled(true);
 		}
 		
-		JButton btn_delete = new JButton("");
-		btn_delete.addActionListener(new ActionListener() {
+		JButton btn_delete_car = new JButton("");
+		btn_delete_car.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car car = new Car();
 				car = car.find(person.findId());
@@ -140,10 +141,56 @@ public class AccountCar extends JFrame {
 			}
 		});
 		Image img = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/delete_logo.jpg")).getImage();
-		btn_delete.setIcon(new ImageIcon(img));
-		btn_delete.setBounds(585, 166, 50, 50);
-		contentPane.add(btn_delete);
+		btn_delete_car.setIcon(new ImageIcon(img));
+		btn_delete_car.setBounds(585, 166, 50, 50);
+		contentPane.add(btn_delete_car);
 		
+		JButton btn_addBike = new JButton("Add a bike");
+		btn_addBike.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				AddBike ab = new AddBike(person);
+				ab.setVisible(true);
+			}
+		});
+		btn_addBike.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_addBike.setBounds(341, 339, 205, 32);
+		contentPane.add(btn_addBike);
+		
+		JLabel lbl_bikeValue = new JLabel("Bike : ");
+		lbl_bikeValue.setFont(new Font("Serif", Font.PLAIN, 20));
+		lbl_bikeValue.setBounds(316, 290, 247, 48);
+		contentPane.add(lbl_bikeValue);
+		
+		Bike bike = new Bike();
+		bike = bike.find(person.findId());
+		if ( bike != null ) {
+			btn_addBike.setEnabled(false);
+			lbl_bikeValue.setText("Bike : " + bike.getType());
+		} else {
+			btn_addBike.setEnabled(true);
+		}
+		
+		JButton btn_delete_bike = new JButton("");
+		btn_delete_bike.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Bike bike = new Bike();
+				bike = bike.find(person.findId());
+				if(bike != null) {
+					bike.delete();
+					JOptionPane.showMessageDialog(null, "Your bike has been deleted");
+					lbl_bikeValue.setText("Bike : ");
+					btn_addBike.setEnabled(true);
+					
+				} else {
+					JOptionPane.showMessageDialog(null, "No bike found");
+				}
+			}
+		});
+		btn_delete_bike.setBounds(585, 290, 50, 50);
+		btn_delete_bike.setIcon(new ImageIcon(img));
+		contentPane.add(btn_delete_bike);
+
 		image = new JLabel("");
 		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));

@@ -12,14 +12,11 @@ public abstract class Category implements Serializable {
 	private static final long serialVersionUID = -9155000318506050985L;
 	private int categoryNumber;
 	private String categoryName;
-	private Calendar calendar;
 
     private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Category> categoryDAO = dao.getCategoryDAO();
 	// Builder with and without parameters
-    public Category() {
-    	setCalendar(new Calendar());
-    }
+    public Category() {}
 
 	public Category(int categoryNumber, String categoryName) {
 		this.categoryNumber = categoryNumber;
@@ -32,13 +29,6 @@ public abstract class Category implements Serializable {
 	}
 	public void setCategoryNumber(int categoryNumber) {
 		this.categoryNumber = categoryNumber;
-	}
-
-	public Calendar getCalendar() {
-		return calendar;
-	}
-	public void setCalendar(Calendar calendar) {
-		this.calendar = calendar;
 	}
 
 	public String getCategoryName() {

@@ -18,9 +18,6 @@ public class Walk implements Serializable {
 	private String description_walk = "";
 	private String category_walk = "";
 	private int forfeit = 0;
-	private Set<Registration> listRegistration = new HashSet<>();
-    private Set<Member> listParticipants = new HashSet<>();
-    private Set<Car> listCars = new HashSet<>();
 
     private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Walk> walkDAO = dao.getWalkDAO();
@@ -58,27 +55,6 @@ public class Walk implements Serializable {
 		this.forfeit = forfeit;
 	}
 
-	public Set<Member> getListParticipants() {
-		return listParticipants;
-	}
-	public void setListParticipants(Set<Member> listParticipants) {
-		this.listParticipants = listParticipants;
-	}
-
-	public Set<Car> getListCars() {
-		return listCars;
-	}
-	public void setListCars(Set<Car> listCars) {
-		this.listCars = listCars;
-	}
-
-	public Set<Registration> getListRegistration() {
-		return listRegistration;
-	}
-	public void setListRegistration(Set<Registration> listRegistration) {
-		this.listRegistration = listRegistration;
-	}
-	
 	public String getDescription_walk() {
 		return description_walk;
 	}
@@ -96,21 +72,6 @@ public class Walk implements Serializable {
 	}
 
 	// Methods 
-	public void addParticipant(Member passenger) {
-		if(!listParticipants.contains(passenger))
-			listParticipants.add(passenger);
-    }
-    public void deleteParticipant(Member passenger) {
-        this.listParticipants.remove(passenger);
-    }
-    public void addCar(Car car) {
-		if(!listCars.contains(car))
-			listCars.add(car);
-    }
-    public void deleteCar(Car car) {
-        this.listCars.remove(car);
-    }
-    
     public ArrayList<Walk> getAll (){
 		ArrayList<Walk> lst_walk = new ArrayList<Walk>();
 		lst_walk = walkDAO.getAll();
@@ -140,28 +101,5 @@ public class Walk implements Serializable {
     public boolean update (Walk walk) {
     	boolean update = walkDAO.update(walk);
     	return update;
-    }
-
-    
-    // TODO Move to Walk DAO
-//    public void GetTotalMemberPlace() {
-//        // TODO implement here
-//    }
-//    public void GetRemainingMemberPlace() {
-//        // TODO implement here
-//    }
-//    public void GetTotalBikePlace() {
-//        // TODO implement here
-//    }
-//    public void GetRemainingBikePlace() {
-//        // TODO implement here
-//    }
-//    public void GetNeedMemberPlace() {
-//        // TODO implement here
-//    }
-//    public void GetNeedBikePlace() {
-//        // TODO implement here
-//    }
-    
-
+    } 
 }

@@ -113,6 +113,8 @@ public class Registration implements Serializable {
 		ArrayList<String> lst_reg = registrationDAO.getPassenger(id);
 		return lst_reg;
 	}
-	
-    
+	public boolean update (Registration reg) {
+		boolean update = registrationDAO.update(reg);
+		return update;
+	}
 }

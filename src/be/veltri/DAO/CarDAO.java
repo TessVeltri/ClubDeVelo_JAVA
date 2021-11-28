@@ -29,16 +29,14 @@ public class CarDAO extends DAO<Car> {
 
 	public boolean delete(Car obj) {
 		try {
-			int result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeUpdate("DELETE FROM Car WHERE id_Person = '"+ obj.getId_person() + "'");
-			
+			this.connect.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
+					.executeUpdate("DELETE FROM Car WHERE id_Person = '" + obj.getId_person() + "'");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;
 		}
-		
+
 	}
 
 	public boolean update(Car obj) {

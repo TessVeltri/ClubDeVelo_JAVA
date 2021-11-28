@@ -45,9 +45,4 @@ public class Calendar implements Serializable {
         this.listWalk.remove(walk);
     }
 
-    // TODO Move to Calendar DAO
-//    public void AddWalk() {
-//        // TODO implement here
-//    }
-
 }

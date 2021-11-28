@@ -14,9 +14,6 @@ public class Member extends Person implements Serializable {
 	private static final long serialVersionUID = -4534714288962563667L;
 	private float pay = 0;
 	private boolean payed = false;
-	private Set<Bike> listBike = new HashSet<>();
-	private Set<Category> listCategory = new HashSet<>();
-	private Set<Registration> listRegistration = new HashSet<>();
 
 	private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Member> memberDAO = dao.getMemberDAO();
@@ -48,33 +45,6 @@ public class Member extends Person implements Serializable {
 	}
 
 	// Methods
-	public void addBike(Bike bike) {
-		if (!listBike.contains(bike))
-			listBike.add(bike);
-	}
-
-	public void deleteBike(Bike bike) {
-		this.listBike.remove(bike);
-	}
-
-	public void addCategory(Category category) {
-		if (!listCategory.contains(category))
-			listCategory.add(category);
-	}
-
-	public void deleteCategory(Category category) {
-		this.listCategory.remove(category);
-	}
-
-	public void addRegistration(Registration registration) {
-		if (!listRegistration.contains(registration))
-			listRegistration.add(registration);
-	}
-
-	public void deleteRegistration(Registration registration) {
-		this.listRegistration.remove(registration);
-	}
-
 	public boolean isPayed() {
 		return payed;
 	}
@@ -89,17 +59,8 @@ public class Member extends Person implements Serializable {
 		return lst_pers;
 	}
 
-	public boolean update() {
-		boolean update = memberDAO.update(this);
+	public boolean update(Member member) {
+		boolean update = memberDAO.update(member);
 		return update;
 	}
-
-	// TODO Move to Member DAO
-//    public void CalculatePay() {
-//        // TODO implement here
-//    }
-//    public void VerifyPay() {
-//        // TODO implement here
-//    }
-
 }

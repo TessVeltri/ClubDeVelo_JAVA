@@ -75,6 +75,7 @@ public class MemberHome extends JFrame {
 		JButton btn_account = new JButton("");
 		btn_account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
 				Account acc = new Account(member);
 				acc.setVisible(true);
 			}

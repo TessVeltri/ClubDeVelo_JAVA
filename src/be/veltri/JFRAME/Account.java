@@ -79,11 +79,11 @@ public class Account extends JFrame {
 		btn_walks.setBounds(28, 166, 205, 32);
 		contentPane.add(btn_walks);
 		
-		JButton btn_car = new JButton("Your car");
+		JButton btn_car = new JButton("Your car and bike");
 		btn_car.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				AccountCar ac = new AccountCar(person);
+				AccountCarBike ac = new AccountCarBike(person);
 				ac.setVisible(true);
 			}
 		});
