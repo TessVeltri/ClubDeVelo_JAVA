@@ -76,9 +76,9 @@ public class ManagerHome extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		Date now = new Date ();
+		java.sql.Date now = new java.sql.Date (System.currentTimeMillis());
 		for (Walk walk : w.getAll()) {
-			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
+			if (now.compareTo(walk.getDateDeparture()) < 0) {
 				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
 						walk.getPlaceDeparture() };
 				model.addRow(row);
