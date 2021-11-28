@@ -85,8 +85,8 @@ public class WalkDAO extends DAO<Walk> {
 		}
 	}
 
-	public boolean findByName(String name) {
-		return false;
+	public Walk findByName(String name) {
+		return null;
 	}
 
 	public boolean addCategoryToPerson(String name, int category_number) {

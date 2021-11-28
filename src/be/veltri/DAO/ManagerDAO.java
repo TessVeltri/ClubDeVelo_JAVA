@@ -54,9 +54,9 @@ public class ManagerDAO extends DAO <Manager>{
 	}
 
 	@Override
-	public boolean findByName(String name) {
+	public Manager findByName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override

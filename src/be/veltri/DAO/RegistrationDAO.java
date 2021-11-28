@@ -86,9 +86,9 @@ public class RegistrationDAO extends DAO<Registration> {
 	}
 
 	@Override
-	public boolean findByName(String name) {
+	public Registration findByName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override

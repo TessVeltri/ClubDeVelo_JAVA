@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import be.veltri.POJO.Member;
 import be.veltri.POJO.Person;
 
 import javax.swing.JLabel;
@@ -61,6 +62,8 @@ public class Account extends JFrame {
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				MemberHome mh = new MemberHome((Member)person);
+				mh.setVisible(true);
 			}
 		});
 		btn_back.setFont(new Font("Serif", Font.PLAIN, 20));

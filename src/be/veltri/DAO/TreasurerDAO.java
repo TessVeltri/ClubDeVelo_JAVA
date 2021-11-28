@@ -54,9 +54,9 @@ public class TreasurerDAO extends DAO<Treasurer>{
 	}
 
 	@Override
-	public boolean findByName(String name) {
+	public Treasurer findByName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override

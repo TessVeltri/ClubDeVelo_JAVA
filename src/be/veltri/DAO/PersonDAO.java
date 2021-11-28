@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Member;
 import be.veltri.POJO.Person;
 import be.veltri.POJO.Registration;
 import be.veltri.POJO.Walk;
@@ -77,20 +78,22 @@ public class PersonDAO extends DAO<Person> {
 		}
 	}
 
-	public boolean findByName(String name) {
-		boolean verif = false;
+	public Person findByName(String name) {
+		Person pers = null;
 		try {
 			ResultSet result = this.connect
-					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT 1 FROM Person WHERE username_Person = '" + name + "'");
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT name_Person, firstname_Person, phone_Person, password_Person, type_Person, pay_Person, payed"
+									+ " FROM Person WHERE username_Person = '" + name + "'");
 			if (result.first()) {
-				if (result.getInt(1) == 1)
-					verif = true;
+				pers = new Member(name, result.getString("name_Person"), result.getString("firstname_Person"),
+						result.getString("phone_Person"), result.getString("password_Person"),
+						result.getString("type_Person"), result.getInt("pay_Person"), result.getBoolean("payed"));
 			}
-			return verif;
+			return pers;
 		} catch (SQLException e) {
 			e.printStackTrace();
-			return false;
+			return null;
 		}
 	}
 

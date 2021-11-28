@@ -8,6 +8,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import be.veltri.POJO.Member;
+import be.veltri.POJO.Person;
 import be.veltri.POJO.Treasurer;
 
 import javax.swing.JLabel;
@@ -70,16 +71,16 @@ public class AnnualSubscription extends JFrame {
 		
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Member name", "Annual subscription", "Payed ?" }));
+				new String[] { "Username", "Member name", "Annual subscription", "Payed ?" }));
 
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		Member member = new Member();
 		for (Member p : member.getAll()) {
 			if (p.isPayed()) {
-				Object[] row = new Object[] { p.getName() + " " + p.getFirstname(), p.getPay(), "Payé"};
+				Object[] row = new Object[] { p.getUsername(), p.getName() + " " + p.getFirstname(), p.getPay(), "Payé"};
 				model.addRow(row);
 			} else {
-				Object[] row = new Object[] { p.getName() + " " + p.getFirstname(), p.getPay(), "Pas payé"};
+				Object[] row = new Object[] { p.getUsername(), p.getName() + " " + p.getFirstname(), p.getPay(), "Pas payé"};
 				model.addRow(row);
 			}
 			
@@ -102,7 +103,7 @@ public class AnnualSubscription extends JFrame {
 			}
 		});
 		btn_reminder.setFont(new Font("Serif", Font.PLAIN, 20));
-		btn_reminder.setBounds(444, 215, 205, 32);
+		btn_reminder.setBounds(444, 204, 205, 32);
 		contentPane.add(btn_reminder);
 		
 		JButton btn_back = new JButton("Back");
@@ -117,10 +118,39 @@ public class AnnualSubscription extends JFrame {
 		btn_back.setBounds(444, 381, 205, 32);
 		contentPane.add(btn_back);
 		
+		JButton btn_payed = new JButton("Paid");
+		btn_payed.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int index = table.getSelectedRow();
+				if (index == -1) {
+					JOptionPane.showMessageDialog(null, "No row selected, please select one");
+				} else {
+					String username = model.getValueAt(index, 0).toString();
+					Member pers = new Member();
+					pers.setUsername(username);
+					Member pers2 = pers.findByName();
+					if(pers2.isPayed())
+						pers2.setPayed(false);
+					else
+						pers2.setPayed(true);
+					pers2.update(pers2);
+					
+					dispose();
+					AnnualSubscription as = new AnnualSubscription(treasurer);
+					as.setVisible(true);
+					JOptionPane.showMessageDialog(null, "The change is done");
+				}
+			}
+		});
+		btn_payed.setFont(new Font("Serif", Font.PLAIN, 20));
+		btn_payed.setBounds(444, 249, 205, 32);
+		contentPane.add(btn_payed);
+
 		image = new JLabel("");
 		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));
 		image.setBounds(-24, 0, 700, 500);
 		getContentPane().add(image);
+		
 	}
 }

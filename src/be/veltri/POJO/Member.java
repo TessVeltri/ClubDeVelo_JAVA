@@ -63,4 +63,8 @@ public class Member extends Person implements Serializable {
 		boolean update = memberDAO.update(member);
 		return update;
 	}
+	public Member findByName () {
+		Member find = memberDAO.findByName(this.getUsername());
+		return find;
+	}
 }

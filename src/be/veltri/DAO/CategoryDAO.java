@@ -60,9 +60,9 @@ public class CategoryDAO extends DAO<Category> {
 	}
 
 	@Override
-	public boolean findByName(String name) {
+	public Category findByName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override

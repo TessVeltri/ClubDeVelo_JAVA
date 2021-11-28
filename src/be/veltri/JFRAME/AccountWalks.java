@@ -19,6 +19,7 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import be.veltri.POJO.Car;
+import be.veltri.POJO.Member;
 import be.veltri.POJO.Person;
 import be.veltri.POJO.Registration;
 import be.veltri.POJO.Walk;
@@ -70,6 +71,8 @@ public class AccountWalks extends JFrame {
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				MemberHome mh = new MemberHome((Member)person);
+				mh.setVisible(true);
 			}
 		});
 		btn_back.setFont(new Font("Serif", Font.PLAIN, 20));

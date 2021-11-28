@@ -34,7 +34,7 @@ public class MemberDAO extends DAO<Member> {
 							"UPDATE Person " + "SET name_Person = '" + obj.getName() + "', " + "firstname_Person = '"
 									+ obj.getFirstname() + "', " + "phone_Person = '" + obj.getFirstname() + "', "
 									+ "password_Person = '" + obj.getPassword() + "', " + "pay_Person = '"
-									+ obj.getPay() + "' " + "WHERE username_Person = '" + obj.getUsername() + "'");
+									+ obj.getPay() + "' , payed = '" + obj.isPayed() + "' " + "WHERE username_Person = '" + obj.getUsername() + "'");
 			if (result == 1)
 				return true;
 			else
@@ -85,9 +85,23 @@ public class MemberDAO extends DAO<Member> {
 	}
 
 	@Override
-	public boolean findByName(String name) {
-		// TODO Auto-generated method stub
-		return false;
+	public Member findByName(String name) {
+		Member pers = null;
+		try {
+			ResultSet result = this.connect
+					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
+							"SELECT name_Person, firstname_Person, phone_Person, password_Person, type_Person, pay_Person, payed"
+									+ " FROM Person WHERE username_Person = '" + name + "'");
+			if (result.first()) {
+				pers = new Member(name, result.getString("name_Person"), result.getString("firstname_Person"),
+						result.getString("phone_Person"), result.getString("password_Person"),
+						result.getString("type_Person"), result.getInt("pay_Person"), result.getBoolean("payed"));
+			}
+			return pers;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	@Override

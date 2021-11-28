@@ -248,7 +248,7 @@ public class SignUp extends JFrame {
 				} else if (!phone.matches("[0-9]+")) {
 					JOptionPane.showMessageDialog(null, "Phone number is incorrect");
 					verif = false;
-				} else if (person.findByName()) {
+				} else if (person.findByName() !=null) {
 					JOptionPane.showMessageDialog(null, "This username is already used");
 				} else {
 					verif = true;

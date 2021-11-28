@@ -71,9 +71,9 @@ public class CarDAO extends DAO<Car> {
 	}
 
 	@Override
-	public boolean findByName(String name) {
+	public Car findByName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override

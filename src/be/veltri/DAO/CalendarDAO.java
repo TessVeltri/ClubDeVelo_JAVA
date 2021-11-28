@@ -39,9 +39,9 @@ public class CalendarDAO extends DAO<Calendar>{
 	}
 
 	@Override
-	public boolean findByName(String name) {
+	public Calendar findByName(String name) {
 		// TODO Auto-generated method stub
-		return false;
+		return null;
 	}
 
 	@Override

@@ -20,6 +20,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import be.veltri.POJO.Category;
+import be.veltri.POJO.Member;
 import be.veltri.POJO.Person;
 import be.veltri.POJO.Trialist;
 
@@ -66,6 +67,8 @@ public class AccountData extends JFrame {
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				MemberHome mh = new MemberHome((Member)person);
+				mh.setVisible(true);
 			}
 		});
 		btn_back.setFont(new Font("Serif", Font.PLAIN, 20));

@@ -28,7 +28,7 @@ public abstract class DAO<T> {
 	
 	public abstract int findId (T obj);
 
-	public abstract boolean findByName (String name);
+	public abstract T findByName (String name);
 	
 	public abstract boolean addCategoryToPerson (String name, int category_number);
 
