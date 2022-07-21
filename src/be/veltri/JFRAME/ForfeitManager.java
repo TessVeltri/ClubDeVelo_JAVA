@@ -85,7 +85,7 @@ public class ForfeitManager extends JFrame {
 		}
 		memberlist.setViewportView(table);
 
-		JButton btn_forfeit = new JButton("Calculate forfeit");
+		JButton btn_forfeit = new JButton("View details");
 		btn_forfeit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int index = table.getSelectedRow();
@@ -98,14 +98,11 @@ public class ForfeitManager extends JFrame {
 					String firstname = model.getValueAt(index, 2).toString();
 					String f = model.getValueAt(index, 3).toString();
 					float forfeit = Float.parseFloat(f);
-
-					//Member member = new Member("", name, firstname, "", "", "Member", forfeit);
-					//lst_member.contains(member);
 					
 					Member member = lst_member.get(Integer.parseInt(cpt) - 1);
 							
 					setVisible(false);
-					CalculateForfeit da = new CalculateForfeit(manager, member);
+					DetailsForfeit da = new DetailsForfeit(manager, member);
 					da.setVisible(true);
 				}
 			}

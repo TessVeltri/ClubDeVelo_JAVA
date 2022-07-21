@@ -3,7 +3,13 @@ package be.veltri.DAO;
 import java.sql.Connection;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Bike;
+import be.veltri.POJO.Car;
+import be.veltri.POJO.Category;
 import be.veltri.POJO.Manager;
+import be.veltri.POJO.Person;
+import be.veltri.POJO.Registration;
+import be.veltri.POJO.Walk;
 
 public class ManagerDAO extends DAO <Manager>{
 
@@ -54,49 +60,79 @@ public class ManagerDAO extends DAO <Manager>{
 	}
 
 	@Override
-	public Manager findByName(String name) {
+	public Manager findByName(Manager manager) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean addCategoryToPerson(String name, int category_number) {
+	public boolean addCategoryToPerson(String name, Category category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public ArrayList<Manager> getAllById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getPassengerCount(int id) {
+	public int getPassengerCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getBikeCount(int id) {
+	public int getBikeCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<String> getDriver(int id) {
+	public ArrayList<String> getDriver(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getDriverForPay(int id) {
+	public ArrayList<String> getDriverForPay(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getPassenger(int id) {
+	public ArrayList<String> getPassenger(Walk walk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Category> getAllCategory(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Registration> getAllRegistration(Walk walk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getAllWalk(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Car findCarForPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Bike findBikeByPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getWalkByPersonAndCategory(Person person, Category category) {
 		// TODO Auto-generated method stub
 		return null;
 	}

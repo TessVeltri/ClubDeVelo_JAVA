@@ -13,19 +13,19 @@ public class Car implements Serializable {
 	private String carName = "";
 	private int nbrMemberPlace = 0;
 	private int nbrBikePlace = 0;
-	private int id_person;
+	private Person person;
 
     private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Car> carDAO = dao.getCarDAO();
     // Builder with and without parameters
     public Car() {}
     
-    public Car(String carName, int nbrMemberPlace, int nbrBikePlace, int id_person) {
+    public Car(String carName, int nbrMemberPlace, int nbrBikePlace, Person person) {
 		super();
 		this.carName = carName;
 		this.nbrMemberPlace = nbrMemberPlace;
 		this.nbrBikePlace = nbrBikePlace;
-		this.id_person = id_person;
+		this.person = person;
 	}
     
     // Getters and Setters
@@ -51,16 +51,16 @@ public class Car implements Serializable {
 		this.carName = carName;
 	}
 	
-	public int getId_person() {
-		return id_person;
+	public Person getPerson() {
+		return person;
 	}
-	public void setId_person(int id_person) {
-		this.id_person = id_person;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
 	// Methods
-	public Car find(int id) {
-		Car car = carDAO.find(id);
+	public Car find(Person person) {
+		Car car = carDAO.findCarForPerson(person);
 		return car;
 	}
 	

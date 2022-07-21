@@ -37,6 +37,9 @@ public class Member extends Person implements Serializable {
 
 	// Getters and Setters
 	public float getPay() {
+		Category cat = new Trialist();
+		ArrayList<Category> lst_cat = cat.getAll(this);
+		this.setPay(20 + ((lst_cat.size() - 1) * 5));
 		return pay;
 	}
 
@@ -64,7 +67,7 @@ public class Member extends Person implements Serializable {
 		return update;
 	}
 	public Member findByName () {
-		Member find = memberDAO.findByName(this.getUsername());
+		Member find = memberDAO.findByName(this);
 		return find;
 	}
 }

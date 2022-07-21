@@ -144,7 +144,6 @@ public class AddBike extends JFrame {
 				String type = txtBikeType.getText().trim();
 				int lenght = 0;
 				int weight = 0;
-				int id_person = person.findId();
 				
 				boolean verif = false;
 				try {
@@ -155,7 +154,7 @@ public class AddBike extends JFrame {
 					verif = false;
 				}
 				
-				Bike bike = new Bike(weight, type, lenght, id_person);
+				Bike bike = new Bike(weight, type, lenght, person);
 				if (type.equals("") || type.equals("Bike type") || lenght <= 0 || weight <= 0) {
 					JOptionPane.showMessageDialog(null, "Please, complete all fields");
 					verif = false;

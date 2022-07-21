@@ -74,11 +74,10 @@ public class PassengerPayments extends JFrame {
 		table.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Passenger", "Number of walk", "€" }));
 
-		int idW = walk.findId();
 		Registration r = new Registration();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		ArrayList<String> lst = new ArrayList<String>();
-		lst = r.getPassenger(idW);
+		lst = r.getPassenger(walk);
 		if (lst.size() != 0) {
 			Object[] row = null;
 			for(int i = 0; i< lst.size(); i+=4) {

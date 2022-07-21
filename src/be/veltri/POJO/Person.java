@@ -95,11 +95,11 @@ public class Person implements Serializable{
 	}
 	
 	public Person findByName () {
-		Person find = personDAO.findByName(this.getUsername());
+		Person find = personDAO.findByName(this);
 		return find;
 	}
-	public boolean addCategoryToPerson (int category_number) {
-		boolean cat = personDAO.addCategoryToPerson(this.getUsername(), category_number);
+	public boolean addCategoryToPerson (Category category) {
+		boolean cat = personDAO.addCategoryToPerson(this.getUsername(), category);
 		return cat;
 	}
 }

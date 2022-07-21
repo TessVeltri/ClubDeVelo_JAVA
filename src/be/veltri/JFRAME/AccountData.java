@@ -115,7 +115,7 @@ public class AccountData extends JFrame {
 		categoriesArea.setFont(new Font("Serif", Font.PLAIN, 12));
 		Category cat = new Trialist();
 		ArrayList<Category> lst_cat = new ArrayList<Category>();
-		lst_cat = cat.getAllById(person.findId());
+		lst_cat = cat.getAll(person);
 
 		if (lst_cat.size() != 0) {
 			categoriesArea.setColumns(1);
@@ -133,21 +133,9 @@ public class AccountData extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				Category c = new Trialist();
-				ArrayList<Category> lst_cat = c.getAllById(person.findId());
+				ArrayList<String> lst_allCat_tmp = c.checkDouble(person);
 				
-				ArrayList<String> lst_allCat = new ArrayList<String>(
-						Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
-				ArrayList<String> lst_allCat_tmp = new ArrayList<String>(
-						Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
-				
-				for (String allCat : lst_allCat) {
-					for (Category cat : lst_cat) {
-						if (allCat.equals(cat.getCategoryName())) {
-							lst_allCat_tmp.remove(allCat);
-						}
-					}
-				}
-				if (lst_allCat_tmp.size()==0) {
+				if (lst_allCat_tmp.size()== 0) {
 					JOptionPane.showMessageDialog(null, "You have already all the categories");			
 				} else {
 					setVisible(false);

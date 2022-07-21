@@ -5,12 +5,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Bike;
+import be.veltri.POJO.Car;
 import be.veltri.POJO.Category;
 import be.veltri.POJO.Cyclo;
 import be.veltri.POJO.Descent;
 import be.veltri.POJO.Hiker;
+import be.veltri.POJO.Person;
 import be.veltri.POJO.Registration;
 import be.veltri.POJO.Trialist;
+import be.veltri.POJO.Walk;
 
 public class CategoryDAO extends DAO<Category> {
 
@@ -60,13 +64,13 @@ public class CategoryDAO extends DAO<Category> {
 	}
 
 	@Override
-	public Category findByName(String name) {
+	public Category findByName(Category category) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean addCategoryToPerson(String name, int category_number) {
+	public boolean addCategoryToPerson(String name, Category category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -78,12 +82,12 @@ public class CategoryDAO extends DAO<Category> {
 	}
 
 	@Override
-	public ArrayList<Category> getAllById(int id) {
+	public ArrayList<Category> getAllCategory(Person person) {
 		ArrayList<Category> lst_cat = new ArrayList<Category>();
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT id_Category FROM Category_Person WHERE id_Person = '" + id + "'");
+					.executeQuery("SELECT id_Category FROM Category_Person WHERE id_Person = '" + person.findId() + "'");
 			while (result.next()) {
 				if (result.getInt(1) == 1) {
 					Category cat = new Trialist();
@@ -107,31 +111,61 @@ public class CategoryDAO extends DAO<Category> {
 	}
 
 	@Override
-	public int getPassengerCount(int id) {
+	public int getPassengerCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getBikeCount(int id) {
+	public int getBikeCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<String> getDriver(int id) {
+	public ArrayList<String> getDriver(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getDriverForPay(int id) {
+	public ArrayList<String> getDriverForPay(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getPassenger(int id) {
+	public ArrayList<String> getPassenger(Walk walk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Registration> getAllRegistration(Walk walk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getAllWalk(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Car findCarForPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Bike findBikeByPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getWalkByPersonAndCategory(Person person, Category category) {
 		// TODO Auto-generated method stub
 		return null;
 	}

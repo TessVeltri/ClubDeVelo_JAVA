@@ -2,6 +2,7 @@ package be.veltri.POJO;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import be.veltri.DAO.AbstractDAOFactory;
 import be.veltri.DAO.DAO;
@@ -40,8 +41,8 @@ public abstract class Category implements Serializable {
 	}
 	
 	// Methods
-	public ArrayList<Category> getAllById(int id){
-		ArrayList<Category> lst_cat = categoryDAO.getAllById(id);
+	public ArrayList<Category> getAll(Person person){
+		ArrayList<Category> lst_cat = categoryDAO.getAllCategory(person);
 		return lst_cat;
 	}
 	
@@ -50,6 +51,23 @@ public abstract class Category implements Serializable {
 		return find;
 	}
     
+	public ArrayList<String> checkDouble(Person person) {
+		ArrayList<Category> lst_cat = this.getAll(person);
+		
+		ArrayList<String> lst_allCat = new ArrayList<String>(
+				Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
+		ArrayList<String> lst_allCat_tmp = new ArrayList<String>(
+				Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
+		
+		for (String allCat : lst_allCat) {
+			for (Category cat : lst_cat) {
+				if (allCat.equals(cat.getCategoryName())) {
+					lst_allCat_tmp.remove(allCat);
+				}
+			}
+		}
+		return lst_allCat_tmp;
+	}
     
 
 }

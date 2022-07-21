@@ -13,8 +13,8 @@ public class Registration implements Serializable {
 	private boolean driver = false;
 	private boolean passenger = false;
 	private boolean bike = false;
-	private int id_person;
-	private int id_walk;
+	private Person person;
+	private Walk walk;
 	
 	private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Registration> registrationDAO = dao.getRegistrationDAO();
@@ -28,12 +28,12 @@ public class Registration implements Serializable {
 		this.bike = bike;
 	}
 
-	public Registration(boolean driver, boolean passenger, boolean bike, int id_person, int id_walk) {
+	public Registration(boolean driver, boolean passenger, boolean bike, Person person, Walk walk) {
 		this.driver = driver;
 		this.passenger = passenger;
 		this.bike = bike;
-		this.id_person = id_person;
-		this.id_walk = id_walk;
+		this.person = person;
+		this.walk = walk;
 	}
 
 	// Getters and Setters
@@ -59,40 +59,40 @@ public class Registration implements Serializable {
 		this.driver = driver;
 	}
 
-	public int getId_person() {
-		return id_person;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setId_person(int id_person) {
-		this.id_person = id_person;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 
-	public int getId_walk() {
-		return id_walk;
+	public Walk getWalk() {
+		return walk;
 	}
 
-	public void setId_walk(int id_walk) {
-		this.id_walk = id_walk;
+	public void setWalk(Walk walk) {
+		this.walk = walk;
 	}
 	// Methods
 	
-	public ArrayList<Registration> getAllById(int id){
-		ArrayList<Registration> lst_reg = registrationDAO.getAllById(id);
+	public ArrayList<Registration> getAll(Walk walk){
+		ArrayList<Registration> lst_reg = registrationDAO.getAllRegistration(walk);
 		return lst_reg;
 	}
 
-	public int getPassengerCount(int id) {
-		int count = registrationDAO.getPassengerCount(id);
+	public int getPassengerCount(Walk walk) {
+		int count = registrationDAO.getPassengerCount(walk);
 		return count;
 	}
 	
-	public int getBikeCount(int id){
-		int count = registrationDAO.getBikeCount(id);
+	public int getBikeCount(Walk walk){
+		int count = registrationDAO.getBikeCount(walk);
 		return count;
 	}
 
-	public ArrayList<String> getDriver(int id) {
-		ArrayList<String> lst_reg = registrationDAO.getDriver(id);
+	public ArrayList<String> getDriver(Walk walk) {
+		ArrayList<String> lst_reg = registrationDAO.getDriver(walk);
 		return lst_reg;
 	}
 	
@@ -105,12 +105,12 @@ public class Registration implements Serializable {
 		return find;
 	}
 
-	public ArrayList<String> getDriverForPay(int id) {
-		ArrayList<String> lst_reg = registrationDAO.getDriverForPay(id);
+	public ArrayList<String> getDriverForPay(Walk walk) {
+		ArrayList<String> lst_reg = registrationDAO.getDriverForPay(walk);
 		return lst_reg;
 	}
-	public ArrayList<String> getPassenger(int id) {
-		ArrayList<String> lst_reg = registrationDAO.getPassenger(id);
+	public ArrayList<String> getPassenger(Walk walk) {
+		ArrayList<String> lst_reg = registrationDAO.getPassenger(walk);
 		return lst_reg;
 	}
 	public boolean update (Registration reg) {

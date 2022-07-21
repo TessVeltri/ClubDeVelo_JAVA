@@ -63,11 +63,8 @@ public class RegistrationToWalk extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		int idW = walk.findId();
-		int idP = member.findId();
-
 		JLabel lbl_title = new JLabel("Sign up to walk n\u00B0 ");
-		lbl_title.setText("Sign up to walk n\u00B0 " + idW);
+		lbl_title.setText("Sign up to walk n\u00B0 " + walk.findId());
 		lbl_title.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_title.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 40));
 		lbl_title.setBounds(98, 24, 489, 58);
@@ -226,12 +223,12 @@ public class RegistrationToWalk extends JFrame {
 				}
 
 				boolean verif = false;
-				Registration rg = new Registration(driver, passenger, bike, idP, idW);
+				Registration rg = new Registration(driver, passenger, bike, member, walk);
 				Car car = new Car() ;
 				if (driver == true && passenger == true) {
 					JOptionPane.showMessageDialog(null, "You can't be driver and passenger at the same time");
 					verif = false;
-				} else if (driver && car.find(member.findId()) == null) {
+				} else if (driver && car.find(member) == null) {
 					JOptionPane.showMessageDialog(null, "You can't be driver and don't have a car");
 					verif = false;
 				}

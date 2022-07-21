@@ -12,18 +12,18 @@ public class Bike implements Serializable{
 	private float weight = 0;
     private String type = "";
     private float length = 0;
-    private int id_person = 0;
+    private Person person = null;
 
     private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Bike> bikeDAO = dao.getBikeDAO();
     // Builder with and without parameters
     public Bike() {}
 
-	public Bike(float weight, String type, float length, int id_person) {
+	public Bike(float weight, String type, float length, Person person) {
 		this.weight = weight;
 		this.type = type;
 		this.length = length;
-		this.id_person = id_person;
+		this.person = person;
 	}
 
 	// Getters and Setters
@@ -48,12 +48,12 @@ public class Bike implements Serializable{
 		this.length = length;
 	}
 
-	public int getId_person() {
-		return id_person;
+	public Person getPerson() {
+		return person;
 	}
 
-	public void setId_person(int id_person) {
-		this.id_person = id_person;
+	public void setPerson(Person person) {
+		this.person = person;
 	}
 	
 	//Methods
@@ -67,8 +67,8 @@ public class Bike implements Serializable{
 		return delete;
 	}
 	
-	public Bike find(int id) {
-		Bike bike = bikeDAO.find(id);
+	public Bike find(Person person) {
+		Bike bike = bikeDAO.findBikeByPerson(person);
 		return bike;
 	}
 	

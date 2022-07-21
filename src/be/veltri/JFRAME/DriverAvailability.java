@@ -1,6 +1,6 @@
 package be.veltri.JFRAME;
 
-import java.awt.EventQueue; 
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 
@@ -59,8 +59,6 @@ public class DriverAvailability extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		int idW = walk.findId();
-
 		JLabel lbl_title = new JLabel("Drivers availability");
 		lbl_title.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_title.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 40));
@@ -88,12 +86,12 @@ public class DriverAvailability extends JFrame {
 
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
-				new String[] { "Drivers", "Place for passenger in the car", "Place for bikes in the car" }));
+				new String[] { "Drivers", "Place for bikes in the car", "Place for passenger in the car" }));
 
 		Registration r = new Registration();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		ArrayList<String> lst = new ArrayList<String>();
-		lst = r.getDriver(idW);
+		lst = r.getDriver(walk);
 		if (lst.size() != 0) {
 			Object[] row = new Object[] { lst.get(1) + " " + lst.get(2), lst.get(3), lst.get(4) };
 			model.addRow(row);
@@ -141,7 +139,7 @@ public class DriverAvailability extends JFrame {
 		contentPane.add(btn_back);
 
 		JLabel lbl_walkValue = new JLabel("");
-		lbl_walkValue.setText("" + idW);
+		lbl_walkValue.setText("" + walk.findId());
 		lbl_walkValue.setFont(new Font("Serif", Font.BOLD | Font.ITALIC, 20));
 		lbl_walkValue.setBounds(96, 75, 109, 27);
 		contentPane.add(lbl_walkValue);
@@ -152,7 +150,7 @@ public class DriverAvailability extends JFrame {
 		contentPane.add(lbl_passCount);
 
 		JLabel lbl_passCountValue = new JLabel("");
-		int count = r.getPassengerCount(idW);
+		int count = r.getPassengerCount(walk);
 		lbl_passCountValue.setText("" + count);
 		lbl_passCountValue.setFont(new Font("Serif", Font.PLAIN, 20));
 		lbl_passCountValue.setBounds(239, 338, 59, 27);
@@ -164,7 +162,7 @@ public class DriverAvailability extends JFrame {
 		contentPane.add(lbl_bikeCount);
 
 		JLabel lbl_bikeCountValue = new JLabel("");
-		int count2 = r.getBikeCount(idW);
+		int count2 = r.getBikeCount(walk);
 		lbl_bikeCountValue.setText("" + count2);
 		lbl_bikeCountValue.setFont(new Font("Serif", Font.PLAIN, 20));
 		lbl_bikeCountValue.setBounds(545, 338, 59, 27);
@@ -182,11 +180,11 @@ public class DriverAvailability extends JFrame {
 			nbr_place_pass = Integer.parseInt(lst.get(3));
 		}
 		int nbr_pass = Integer.parseInt(lbl_passCountValue.getText());
-		if ((nbr_pass - nbr_place_pass) < 0) {
+		if (walk.getCarPlace(nbr_pass, nbr_place_pass) < 0) {
 			lbl_passNeedValue.setForeground(Color.BLACK);
 			lbl_passNeedValue.setText("0");
 		} else {
-			lbl_passNeedValue.setText("" + (nbr_pass - nbr_place_pass));
+			lbl_passNeedValue.setText("" + walk.getCarPlace(nbr_pass, nbr_place_pass));
 		}
 		lbl_passNeedValue.setFont(new Font("Serif", Font.PLAIN, 20));
 		lbl_passNeedValue.setBounds(264, 376, 59, 27);
@@ -204,18 +202,18 @@ public class DriverAvailability extends JFrame {
 			nbr_place_bike = Integer.parseInt(lst.get(4));
 		}
 		int nbr_bike = Integer.parseInt(lbl_bikeCountValue.getText());
-		if ((nbr_bike - nbr_place_bike) < 0) {
+		if (walk.getBikePlaceForWalk(nbr_bike, nbr_place_bike) < 0) {
 			lbl_bikeNeedValue.setForeground(Color.BLACK);
 			lbl_bikeNeedValue.setText("0");
 		} else {
-			lbl_bikeNeedValue.setText("" + (nbr_bike - nbr_place_bike));
+			lbl_bikeNeedValue.setText("" + walk.getBikePlaceForWalk(nbr_bike, nbr_place_bike));
 		}
 		lbl_bikeNeedValue.setFont(new Font("Serif", Font.PLAIN, 20));
 		lbl_bikeNeedValue.setBounds(574, 376, 59, 27);
 		contentPane.add(lbl_bikeNeedValue);
-		
+
 		image = new JLabel("");
-		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		Image img3 = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));
 		image.setBounds(-24, 0, 700, 500);
 		getContentPane().add(image);

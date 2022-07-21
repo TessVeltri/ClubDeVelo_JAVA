@@ -162,12 +162,15 @@ public class AddWalk extends JFrame {
 						}
 					}
 				}
+				long millis=System.currentTimeMillis();
 				String cat = cb_category.getSelectedItem().toString();
 				String date_pick = dateField.getText();
+				if (date_pick.equals("")) {
+					date_pick = new Date (millis).toString();
+					System.out.println(date_pick);
+				}
 				Date date_p = Date.valueOf(date_pick);
-				long millis=System.currentTimeMillis();
 				Date now = new Date(millis);
-				
 				Walk walk = new Walk(place_departure,date_p, desc, cat, 0);		
 				Walk check = new Walk();
 				check = walk.find();
@@ -176,8 +179,8 @@ public class AddWalk extends JFrame {
 						desc.equals("") || cat.equals("Select a category") || date_p == null) {
 					JOptionPane.showMessageDialog(null, "Please, complete all fields");
 					verif = false;
-				} else if (date_p.compareTo(now)<0 ){
-					JOptionPane.showMessageDialog(null, "You cannot choose a date before today");
+				} else if (date_p.compareTo(now)<=0 ){
+					JOptionPane.showMessageDialog(null, "You cannot choose a date before today or today");
 					verif = false;
 				} else if (check.getPlaceDeparture().equals(walk.getPlaceDeparture())) {
 					JOptionPane.showMessageDialog(null, "A walk with this configuration already exist");

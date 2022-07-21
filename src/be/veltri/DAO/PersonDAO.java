@@ -5,6 +5,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Bike;
+import be.veltri.POJO.Car;
+import be.veltri.POJO.Category;
 import be.veltri.POJO.Member;
 import be.veltri.POJO.Person;
 import be.veltri.POJO.Registration;
@@ -78,15 +81,15 @@ public class PersonDAO extends DAO<Person> {
 		}
 	}
 
-	public Person findByName(String name) {
+	public Person findByName(Person person) {
 		Person pers = null;
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
 							"SELECT name_Person, firstname_Person, phone_Person, password_Person, type_Person, pay_Person, payed"
-									+ " FROM Person WHERE username_Person = '" + name + "'");
+									+ " FROM Person WHERE username_Person = '" + person.getUsername() + "'");
 			if (result.first()) {
-				pers = new Member(name, result.getString("name_Person"), result.getString("firstname_Person"),
+				pers = new Member(person.getUsername(), result.getString("name_Person"), result.getString("firstname_Person"),
 						result.getString("phone_Person"), result.getString("password_Person"),
 						result.getString("type_Person"), result.getInt("pay_Person"), result.getBoolean("payed"));
 			}
@@ -97,7 +100,7 @@ public class PersonDAO extends DAO<Person> {
 		}
 	}
 
-	public boolean addCategoryToPerson(String name, int category_Number) {
+	public boolean addCategoryToPerson(String name, Category category) {
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
@@ -107,7 +110,7 @@ public class PersonDAO extends DAO<Person> {
 				try {
 					this.connect.createStatement()
 							.executeUpdate("INSERT INTO Category_Person (id_Person, id_Category) VALUES ('" + id
-									+ "' , '" + category_Number + "')");
+									+ "' , '" + category.findId() + "')");
 					return true;
 				} catch (SQLException e) {
 					e.printStackTrace();
@@ -127,39 +130,71 @@ public class PersonDAO extends DAO<Person> {
 	}
 
 	@Override
-	public ArrayList<Person> getAllById(int id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public int getPassengerCount(int id) {
+	public int getPassengerCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getBikeCount(int id) {
+	public int getBikeCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<String> getDriver(int id) {
+	public ArrayList<String> getDriver(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getDriverForPay(int id) {
+	public ArrayList<String> getDriverForPay(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getPassenger(int id) {
+	public ArrayList<String> getPassenger(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public ArrayList<Category> getAllCategory(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Registration> getAllRegistration(Walk walk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getAllWalk(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Car findCarForPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Bike findBikeByPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getWalkByPersonAndCategory(Person person, Category category) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 
 }

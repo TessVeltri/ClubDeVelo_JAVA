@@ -1,13 +1,12 @@
 package be.veltri.POJO;
 
-import java.io.Serializable; 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
 import be.veltri.DAO.*;
-
 
 public class Walk implements Serializable {
 
@@ -19,13 +18,14 @@ public class Walk implements Serializable {
 	private String category_walk = "";
 	private int forfeit = 0;
 
-    private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
+	private static AbstractDAOFactory dao = AbstractDAOFactory.getFactory(AbstractDAOFactory.DAO_FACTORY);
 	private static DAO<Walk> walkDAO = dao.getWalkDAO();
 
 	// Builder with and without parameters
-    public Walk() {}
-    
-    public Walk(String placeDeparture, Date dateDeparture, String description_walk, String category_walk, int forfeit) {
+	public Walk() {
+	}
+
+	public Walk(String placeDeparture, Date dateDeparture, String description_walk, String category_walk, int forfeit) {
 		this.placeDeparture = placeDeparture;
 		this.dateDeparture = dateDeparture;
 		this.description_walk = description_walk;
@@ -33,10 +33,11 @@ public class Walk implements Serializable {
 		this.forfeit = forfeit;
 	}
 
-    // Getters and Setters
+	// Getters and Setters
 	public String getPlaceDeparture() {
 		return placeDeparture;
 	}
+
 	public void setPlaceDeparture(String placeDeparture) {
 		this.placeDeparture = placeDeparture;
 	}
@@ -44,6 +45,7 @@ public class Walk implements Serializable {
 	public Date getDateDeparture() {
 		return dateDeparture;
 	}
+
 	public void setDateDeparture(Date dateDeparture) {
 		this.dateDeparture = dateDeparture;
 	}
@@ -51,6 +53,7 @@ public class Walk implements Serializable {
 	public int getForfeit() {
 		return forfeit;
 	}
+
 	public void setForfeit(int forfeit) {
 		this.forfeit = forfeit;
 	}
@@ -62,7 +65,7 @@ public class Walk implements Serializable {
 	public void setDescription_walk(String description_walk) {
 		this.description_walk = description_walk;
 	}
-	
+
 	public String getCategory_walk() {
 		return category_walk;
 	}
@@ -71,35 +74,51 @@ public class Walk implements Serializable {
 		this.category_walk = category_walk;
 	}
 
-	// Methods 
-    public ArrayList<Walk> getAll (){
+	// Methods
+	public ArrayList<Walk> getAll() {
 		ArrayList<Walk> lst_walk = new ArrayList<Walk>();
 		lst_walk = walkDAO.getAll();
 		return lst_walk;
-    }
-    
-    public ArrayList<Walk> getAllById(int id) {
-    	ArrayList<Walk> lst_walk = new ArrayList<Walk>();
-		lst_walk = walkDAO.getAllById(id);
+	}
+
+	public ArrayList<Walk> getAll(Person person) {
+		ArrayList<Walk> lst_walk = new ArrayList<Walk>();
+		lst_walk = walkDAO.getAllWalk(person);
 		return lst_walk;
-    }
-    
-    public int findId() {
-    	int id = walkDAO.findId(this);
-    	return id;
-    }
-    
-    public Walk find () {
-    	Walk walk = walkDAO.find(this);
-    	return walk;
-    }
-    
-    public boolean create () {
-    	boolean create = walkDAO.create(this);
-    	return create;
-    }
-    public boolean update (Walk walk) {
-    	boolean update = walkDAO.update(walk);
-    	return update;
-    } 
+	}
+
+	public int findId() {
+		int id = walkDAO.findId(this);
+		return id;
+	}
+
+	public Walk findById(int id) {
+
+		return walkDAO.find(id);
+	}
+
+	public Walk find() {
+		Walk walk = walkDAO.find(this);
+		return walk;
+	}
+
+	public boolean create() {
+		boolean create = walkDAO.create(this);
+		return create;
+	}
+
+	public boolean update(Walk walk) {
+		boolean update = walkDAO.update(walk);
+		return update;
+	}
+
+	public int getBikePlaceForWalk(int bike, int actualPlace) {
+
+		return bike - actualPlace;
+	}
+
+	public int getCarPlace(int nbr_pass, int nbr_place_pass) {
+	
+		return nbr_pass - nbr_place_pass;
+	}
 }

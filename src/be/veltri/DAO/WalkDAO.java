@@ -5,7 +5,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Bike;
+import be.veltri.POJO.Car;
+import be.veltri.POJO.Category;
 import be.veltri.POJO.Person;
+import be.veltri.POJO.Registration;
 import be.veltri.POJO.Walk;
 
 public class WalkDAO extends DAO<Walk> {
@@ -114,14 +118,14 @@ public class WalkDAO extends DAO<Walk> {
 	}
 
 	@Override
-	public ArrayList<Walk> getAllById(int id) {
+	public ArrayList<Walk> getAllWalk(Person person) {
 		ArrayList<Walk> lst_walks = new ArrayList<Walk>();
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
 					.executeQuery("SELECT placeDeparture_Walk, dateDeparture_Walk, description_Walk, category_Walk, "
 							+ "forfeit_Walk FROM Walk INNER JOIN Registration reg ON reg.id_Walk = Walk.id_Walk WHERE reg.id_Person = "
-							+ id + " ORDER BY Walk.id_Walk");
+							+ person.findId() + " ORDER BY Walk.id_Walk");
 			while (result.next()) {
 				Walk walk = new Walk(result.getString("placeDeparture_Walk"), result.getDate("dateDeparture_Walk"),
 						result.getString("description_Walk"), result.getString("category_Walk"),
@@ -136,31 +140,73 @@ public class WalkDAO extends DAO<Walk> {
 	}
 
 	@Override
-	public int getPassengerCount(int id) {
+	public int getPassengerCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public int getBikeCount(int id) {
+	public int getBikeCount(Walk walk) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public ArrayList<String> getDriver(int id) {
+	public ArrayList<String> getDriver(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getDriverForPay(int id) {
+	public ArrayList<String> getDriverForPay(Walk walk) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<String> getPassenger(int id) {
+	public ArrayList<String> getPassenger(Walk walk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean addCategoryToPerson(String name, Category category) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public ArrayList<Category> getAllCategory(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Registration> getAllRegistration(Walk walk) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Walk findByName(Walk name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Car findCarForPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Bike findBikeByPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getWalkByPersonAndCategory(Person person, Category category) {
 		// TODO Auto-generated method stub
 		return null;
 	}

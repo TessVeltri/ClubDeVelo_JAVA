@@ -68,20 +68,8 @@ public class AddCategory extends JFrame {
 		contentPane.add(lbl_title);
 		
 		Category c = new Trialist();
-		ArrayList<Category> lst_cat = c.getAllById(person.findId());
-		
-		ArrayList<String> lst_allCat = new ArrayList<String>(
-				Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
-		ArrayList<String> lst_allCat_tmp = new ArrayList<String>(
-				Arrays.asList("VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
-		
-		for (String allCat : lst_allCat) {
-			for (Category cat : lst_cat) {
-				if (allCat.equals(cat.getCategoryName())) {
-					lst_allCat_tmp.remove(allCat);
-				}
-			}
-		}
+		ArrayList<String> lst_allCat_tmp = c.checkDouble(person);
+
 		if (lst_allCat_tmp.size()==0) {
 			JOptionPane.showMessageDialog(null, "You have already all the categories");
 			setVisible(false);
@@ -123,12 +111,11 @@ public class AddCategory extends JFrame {
 				} else {
 					cat = new Cyclo();
 				}
-				int id_category = cat.findId();
 				
 				if (category.equals("Select a category")) {
 					JOptionPane.showMessageDialog(null, "Please, select a category");
 				} else {
-					boolean check = person.addCategoryToPerson(id_category);
+					boolean check = person.addCategoryToPerson(cat);
 					if (check) {
 						JOptionPane.showMessageDialog(null, "You add a new category to your account");
 						dispose();

@@ -266,7 +266,7 @@ public class SignUp extends JFrame {
 					} else {
 						cat = new Cyclo();
 					}
-					boolean register2 = person.addCategoryToPerson(cat.getCategoryNumber());
+					boolean register2 = person.addCategoryToPerson(cat);
 
 					if (register && register2) {
 						JOptionPane.showMessageDialog(null, "Great ! Your sign up is done ");

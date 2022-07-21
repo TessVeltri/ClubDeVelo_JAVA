@@ -15,8 +15,13 @@ import java.awt.Image;
 import javax.swing.SwingConstants;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 
+import be.veltri.POJO.Calendar;
 import be.veltri.POJO.Category;
+import be.veltri.POJO.Cyclo;
+import be.veltri.POJO.Descent;
+import be.veltri.POJO.Hiker;
 import be.veltri.POJO.Member;
 import be.veltri.POJO.Trialist;
 import be.veltri.POJO.Walk;
@@ -84,9 +89,18 @@ public class MemberHome extends JFrame {
 		btn_account.setIcon(new ImageIcon(img));
 		btn_account.setBounds(550, 24, 50, 50);
 		contentPane.add(btn_account);
+		
+		Calendar calendar = new Calendar();
+		ArrayList<String> cat_list = new ArrayList<String>(
+				Arrays.asList("All", "VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
+		Object[] lst = cat_list.toArray();
+
+		JComboBox cb_categories = new JComboBox(lst);
+		cb_categories.setBounds(41, 119, 129, 22);
+		contentPane.add(cb_categories);
 
 		JScrollPane walkList = new JScrollPane();
-		walkList.setBounds(41, 112, 387, 290);
+		walkList.setBounds(41, 152, 387, 290);
 		contentPane.add(walkList);
 
 		table = new JTable();
@@ -94,7 +108,7 @@ public class MemberHome extends JFrame {
 				new String[] { "N°", "Walk category", "Walk date", "Walk departure", "Description" }));
 
 		Category c = new Trialist();
-		ArrayList<Category> lst_cat = c.getAllById(member.findId());
+		ArrayList<Category> lst_cat = c.getAll(member);
 		ArrayList<String> list_cat_str = new ArrayList<String>();
 		for (Category str : lst_cat) {
 			list_cat_str.add(str.getCategoryName());
@@ -105,14 +119,51 @@ public class MemberHome extends JFrame {
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		java.sql.Date now = new java.sql.Date (System.currentTimeMillis());
-		for (Walk walk : w.getAll()) {
-			if (now.compareTo(walk.getDateDeparture()) < 0) {
-				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
-						walk.getPlaceDeparture(), walk.getDescription_walk() };
-				model.addRow(row);
-			}
-		}
 		walkList.setViewportView(table);
+		
+		JButton btn_go = new JButton("GO");
+		btn_go.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String category_name = cb_categories.getSelectedItem().toString();
+				Category category = new Trialist();
+
+				Walk w = new Walk();
+
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+				int modelCount = model.getRowCount();
+				for (int i = 0; i < modelCount; i++)
+					model.removeRow(0);
+
+				String pattern = "dd-MM-yyyy";
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+				Date now = new Date();
+
+				if (category_name.equals("VTT_Trialist")) {
+					category = new Trialist();
+				} else if (category_name.equals("VTT_Descent")) {
+					category = new Descent();
+				} else if (category_name.equals("VTT_Hiker")) {
+					category = new Hiker();
+				} else if (category_name.equals("Cyclo")) {
+					category = new Cyclo();
+				} else {
+					category = null;
+				}
+				for (Walk walk : calendar.getListWalk(category, member)) {
+					if (now.after(walk.getDateDeparture()) == false) {
+						Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(),
+								simpleDateFormat.format(walk.getDateDeparture()), walk.getPlaceDeparture(),
+								walk.getDescription_walk() };
+						model.addRow(row);
+					}
+				}
+
+			}
+		});
+		btn_go.setBounds(180, 119, 61, 23);
+		contentPane.add(btn_go);
 
 		JButton btn_driverA = new JButton("Drivers available");
 		btn_driverA.addActionListener(new ActionListener() {
@@ -196,5 +247,7 @@ public class MemberHome extends JFrame {
 		image.setIcon(new ImageIcon(img3));
 		image.setBounds(-24, 0, 700, 500);
 		getContentPane().add(image);
+		
+		
 	}
 }

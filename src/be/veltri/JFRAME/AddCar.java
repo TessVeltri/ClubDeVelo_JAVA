@@ -151,7 +151,6 @@ public class AddCar extends JFrame {
 				String car_name = txtcarName.getText().trim();
 				int nbr_bike = 0;
 				int nbr_passenger = 0;
-				int person_id = person.findId();
 				
 				boolean verif = false;
 				
@@ -164,8 +163,8 @@ public class AddCar extends JFrame {
 					verif = false;
 				}
 
-				Car car = new Car(car_name, nbr_bike, nbr_passenger, person_id);
-				if (car_name.equals("") || car_name.equals("Car name") || nbr_bike <= 0 || nbr_passenger <= 0) {
+				Car car = new Car(car_name, nbr_bike, nbr_passenger, person);
+				if (car_name.equals("") || car_name.equals("Car name") || nbr_bike < 0 || nbr_passenger <= 0) {
 					JOptionPane.showMessageDialog(null, "Please, complete all fields");
 					verif = false;
 				} else {

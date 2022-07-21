@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Date;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.ImageIcon;
@@ -71,7 +72,7 @@ public class AccountWalks extends JFrame {
 		btn_back.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				MemberHome mh = new MemberHome((Member)person);
+				MemberHome mh = new MemberHome((Member) person);
 				mh.setVisible(true);
 			}
 		});
@@ -121,17 +122,14 @@ public class AccountWalks extends JFrame {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		Date now = new Date();
 		Walk w = new Walk();
-		int id = person.findId();
-		for (Walk walk : w.getAllById(id)) {
-			if (simpleDateFormat.format(now).toString()
-					.compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
+		for (Walk walk : w.getAll(person)) {
 
-				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(),
-						simpleDateFormat.format(walk.getDateDeparture()), walk.getPlaceDeparture(),
-						walk.getDescription_walk() };
-				model.addRow(row);
-			}
+			Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(),
+					simpleDateFormat.format(walk.getDateDeparture()), walk.getPlaceDeparture(),
+					walk.getDescription_walk() };
+			model.addRow(row);
 		}
+
 		walkList.setViewportView(table);
 
 		JButton btn_wantDriver = new JButton("I want to be driver");
@@ -141,33 +139,41 @@ public class AccountWalks extends JFrame {
 				if (index == -1) {
 					JOptionPane.showMessageDialog(null, "No row selected, please select one");
 				} else {
-					String id_w = model.getValueAt(index, 0).toString();
-					int id_walk = Integer.parseInt(id_w);
-					int id_person = person.findId();
-					Registration rg = new Registration(true, false, false, id_person, id_walk);
+					java.sql.Date date = null;
+					try {
+						String str = model.getValueAt(index, 2).toString();
+						date = new java.sql.Date(new SimpleDateFormat("dd-MM-yyyy").parse(str).getTime());
+					} catch (ParseException e1) {
+						e1.printStackTrace();
+					}
+					Walk walk = new Walk(model.getValueAt(index, 3).toString(), date,
+							model.getValueAt(index, 4).toString(), model.getValueAt(index, 1).toString(), 0);
+
+					Registration rg = new Registration(true, false, false, person, walk);
 					Car car = new Car();
-					car = car.find(person.findId());
-					
-					if(car==null) {
+					car = car.find(person);
+
+					if (car == null) {
 						JOptionPane.showMessageDialog(null, "You can't be driver, you don't have a car");
-					} else  {
+					} else {
 						boolean update = rg.update(rg);
 						if (update) {
-							JOptionPane.showMessageDialog(null, "Great, you have just registered as a driver for this walk");
+							JOptionPane.showMessageDialog(null,
+									"Great, you have just registered as a driver for this walk");
 						}
-					}	
+					}
 				}
 			}
 		});
 		btn_wantDriver.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_wantDriver.setBounds(374, 396, 205, 32);
 		contentPane.add(btn_wantDriver);
-		
+
 		image = new JLabel("");
 		Image img3 = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));
 		image.setBounds(-24, 0, 700, 500);
 		getContentPane().add(image);
-		
+
 	}
 }

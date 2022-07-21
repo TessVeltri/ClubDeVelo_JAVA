@@ -1,12 +1,14 @@
 package be.veltri.JFRAME;
 
-import java.awt.EventQueue; 
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 import javax.swing.ImageIcon;
@@ -21,9 +23,18 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.healthmarketscience.jackcess.Table;
+
+import be.veltri.POJO.Calendar;
+import be.veltri.POJO.Category;
+import be.veltri.POJO.Cyclo;
+import be.veltri.POJO.Descent;
+import be.veltri.POJO.Hiker;
 import be.veltri.POJO.Treasurer;
+import be.veltri.POJO.Trialist;
 import be.veltri.POJO.Walk;
 import java.awt.Color;
+import javax.swing.JComboBox;
 
 public class TreasurerHome extends JFrame {
 
@@ -65,8 +76,17 @@ public class TreasurerHome extends JFrame {
 		lbl_title.setBounds(219, 24, 254, 58);
 		contentPane.add(lbl_title);
 
+		Calendar calendar = new Calendar();
+		ArrayList<String> cat_list = new ArrayList<String>(
+				Arrays.asList("All", "VTT_Trialist", "VTT_Descent", "VTT_Hiker", "Cyclo"));
+		Object[] lst = cat_list.toArray();
+
+		JComboBox cb_categories = new JComboBox(lst);
+		cb_categories.setBounds(41, 119, 129, 22);
+		contentPane.add(cb_categories);
+
 		JScrollPane walkList = new JScrollPane();
-		walkList.setBounds(41, 112, 305, 274);
+		walkList.setBounds(41, 152, 305, 274);
 		contentPane.add(walkList);
 
 		table = new JTable();
@@ -74,17 +94,6 @@ public class TreasurerHome extends JFrame {
 				new String[] { "N°", "Walk category", "Walk date", "Walk departure", "Walk description" }));
 
 		Walk w = new Walk();
-		DefaultTableModel model = (DefaultTableModel) table.getModel();
-		String pattern = "dd-MM-yyyy";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		Date now = new Date();
-		for (Walk walk : w.getAll()) {
-			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
-				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
-						walk.getPlaceDeparture(), walk.getDescription_walk() };
-				model.addRow(row);
-			}
-		}
 		walkList.setViewportView(table);
 
 		JButton btn_refundDriver = new JButton("Refund drivers");
@@ -108,12 +117,13 @@ public class TreasurerHome extends JFrame {
 					}
 					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
 					Walk walk_to_pass = new Walk(walk_dep, w_date, walk_desc, walk_cat, 0);
-					
-				setVisible(false);
-				RefundDriver da = new RefundDriver(treasurer, walk_to_pass);
-				da.setVisible(true);
+
+					setVisible(false);
+					RefundDriver da = new RefundDriver(treasurer, walk_to_pass);
+					da.setVisible(true);
+				}
 			}
-		}});
+		});
 		btn_refundDriver.setFont(new Font("Serif", Font.PLAIN, 20));
 		btn_refundDriver.setBounds(420, 218, 205, 32);
 		contentPane.add(btn_refundDriver);
@@ -130,6 +140,50 @@ public class TreasurerHome extends JFrame {
 		btn_aSub.setBounds(420, 261, 205, 32);
 		contentPane.add(btn_aSub);
 
+		JButton btn_go = new JButton("GO");
+		btn_go.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				String category_name = cb_categories.getSelectedItem().toString();
+				Category category = new Trialist();
+
+				Walk w = new Walk();
+
+				DefaultTableModel model = (DefaultTableModel) table.getModel();
+
+				int modelCount = model.getRowCount();
+				for (int i = 0; i < modelCount; i++)
+					model.removeRow(0);
+
+				String pattern = "dd-MM-yyyy";
+				SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+				Date now = new Date();
+
+				if (category_name.equals("VTT_Trialist")) {
+					category = new Trialist();
+				} else if (category_name.equals("VTT_Descent")) {
+					category = new Descent();
+				} else if (category_name.equals("VTT_Hiker")) {
+					category = new Hiker();
+				} else if (category_name.equals("Cyclo")) {
+					category = new Cyclo();
+				} else {
+					category = null;
+				}
+				for (Walk walk : calendar.getListWalk(category, null)) {
+
+					Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(),
+							simpleDateFormat.format(walk.getDateDeparture()), walk.getPlaceDeparture(),
+							walk.getDescription_walk() };
+					model.addRow(row);
+
+				}
+
+			}
+		});
+		btn_go.setBounds(180, 119, 61, 23);
+		contentPane.add(btn_go);
+
 		JButton btn_logOut = new JButton("");
 		btn_logOut.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -143,7 +197,7 @@ public class TreasurerHome extends JFrame {
 		btn_logOut.setIcon(new ImageIcon(img2));
 		btn_logOut.setBounds(611, 24, 50, 50);
 		contentPane.add(btn_logOut);
-		
+
 		JButton btn_paymentPassenger = new JButton("Passengers payments");
 		btn_paymentPassenger.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -165,7 +219,7 @@ public class TreasurerHome extends JFrame {
 					}
 					java.sql.Date w_date = new java.sql.Date(walk_date.getTime());
 					Walk walk_to_pass = new Walk(walk_dep, w_date, walk_desc, walk_cat, 0);
-					
+
 					setVisible(false);
 					PassengerPayments rw = new PassengerPayments(treasurer, walk_to_pass);
 					rw.setVisible(true);
@@ -182,13 +236,12 @@ public class TreasurerHome extends JFrame {
 		lblTreasurerView.setFont(new Font("Serif", Font.PLAIN, 20));
 		lblTreasurerView.setBounds(41, 36, 129, 40);
 		contentPane.add(lblTreasurerView);
-		
+
 		image = new JLabel("");
-		Image img3 = new ImageIcon (this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
+		Image img3 = new ImageIcon(this.getClass().getResource("/be/veltri/IMG/background.jpg")).getImage();
 		image.setIcon(new ImageIcon(img3));
 		image.setBounds(-14, 0, 700, 500);
 		getContentPane().add(image);
-		
-	}
 
+	}
 }

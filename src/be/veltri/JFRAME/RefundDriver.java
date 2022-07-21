@@ -67,7 +67,6 @@ public class RefundDriver extends JFrame {
 		driver.setBounds(73, 124, 363, 279);
 		contentPane.add(driver);
 
-		int idW = walk.findId();
 		table = new JTable();
 		table.setModel(new DefaultTableModel(new Object[][] {},
 				new String[] { "Driver", "Number of walk", "€" }));
@@ -75,7 +74,7 @@ public class RefundDriver extends JFrame {
 		Registration r = new Registration();
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		ArrayList<String> lst = new ArrayList<String>();
-		lst = r.getDriverForPay(idW);
+		lst = r.getDriverForPay(walk);
 		if (lst.size() != 0) {
 			Object[] row = null;
 			for(int i = 0; i< lst.size(); i+=4) {

@@ -119,7 +119,7 @@ public class AccountCarBike extends JFrame {
 		contentPane.add(lbl_carValue);
 		
 		Car car = new Car();
-		car = car.find(person.findId());
+		car = car.find(person);
 		if ( car != null ) {
 			btn_addCar.setEnabled(false);
 			lbl_carValue.setText("Car name : " + car.getCarName());
@@ -131,7 +131,7 @@ public class AccountCarBike extends JFrame {
 		btn_delete_car.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Car car = new Car();
-				car = car.find(person.findId());
+				car = car.find(person);
 				if(car != null) {
 					car.delete();
 					JOptionPane.showMessageDialog(null, "Your car has been deleted");
@@ -166,7 +166,7 @@ public class AccountCarBike extends JFrame {
 		contentPane.add(lbl_bikeValue);
 		
 		Bike bike = new Bike();
-		bike = bike.find(person.findId());
+		bike = bike.find(person);
 		if ( bike != null ) {
 			btn_addBike.setEnabled(false);
 			lbl_bikeValue.setText("Bike : " + bike.getType());
@@ -178,7 +178,7 @@ public class AccountCarBike extends JFrame {
 		btn_delete_bike.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Bike bike = new Bike();
-				bike = bike.find(person.findId());
+				bike = bike.find(person);
 				if(bike != null) {
 					bike.delete();
 					JOptionPane.showMessageDialog(null, "Your bike has been deleted");

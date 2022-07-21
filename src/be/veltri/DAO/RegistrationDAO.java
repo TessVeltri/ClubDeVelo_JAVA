@@ -5,8 +5,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import be.veltri.POJO.Bike;
+import be.veltri.POJO.Car;
+import be.veltri.POJO.Category;
 import be.veltri.POJO.Person;
 import be.veltri.POJO.Registration;
+import be.veltri.POJO.Walk;
 
 public class RegistrationDAO extends DAO<Registration> {
 
@@ -20,7 +24,7 @@ public class RegistrationDAO extends DAO<Registration> {
 			this.connect.createStatement().executeUpdate(
 					"INSERT INTO Registration(driver_registration, passenger_Registration, bike_Registration, id_Person, id_Walk "
 							+ ") Values('" + obj.isDriver() + "', '" + obj.isPassenger() + "', '" + obj.isBike()
-							+ "', '" + obj.getId_person() + "', '" + obj.getId_walk() + "')");
+							+ "', '" + obj.getPerson().findId() + "', '" + obj.getWalk().findId() + "')");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -43,7 +47,7 @@ public class RegistrationDAO extends DAO<Registration> {
 					.executeUpdate("UPDATE Registration "
 							+ "SET driver_Registration = '" + obj.isDriver() + "', "
 							+ "passenger_Registration = '"+ obj.isPassenger() +"' "
-							+ "WHERE id_Person = '" + obj.getId_person() + "' AND id_Walk = '" + obj.getId_walk() + "'");
+							+ "WHERE id_Person = '" + obj.getPerson().findId() + "' AND id_Walk = '" + obj.getWalk().findId() + "'");
 			return true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -61,8 +65,8 @@ public class RegistrationDAO extends DAO<Registration> {
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
-					.executeQuery("SELECT * FROM Registration WHERE id_person = '" + obj.getId_person()+ "' AND id_Walk = '"
-							+ obj.getId_walk() + "'");
+					.executeQuery("SELECT * FROM Registration WHERE id_person = '" + obj.getPerson().findId()+ "' AND id_Walk = '"
+							+ obj.getWalk().findId() + "'");
 			if (result.first()) {
 				rg = new Registration ();
 			}
@@ -86,25 +90,25 @@ public class RegistrationDAO extends DAO<Registration> {
 	}
 
 	@Override
-	public Registration findByName(String name) {
+	public Registration findByName(Registration registration) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean addCategoryToPerson(String name, int category_number) {
+	public boolean addCategoryToPerson(String name, Category category) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public ArrayList<Registration> getAllById(int id) {
+	public ArrayList<Registration> getAllRegistration(Walk walk) {
 		ArrayList<Registration> lst_reg = new ArrayList<Registration>();
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
 							"SELECT driver_Registration, passenger_Registration, bike_Registration, id_Person, id_Walk "
-									+ "FROM Registration WHERE id_Walk = '" + id + "'");
+									+ "FROM Registration WHERE id_Walk = '" + walk.findId() + "'");
 			while (result.next()) {
 				Registration reg = new Registration(result.getBoolean("driver_Registration"),
 						result.getBoolean("passenger_Registration"), result.getBoolean("bike_Registration"));
@@ -118,13 +122,13 @@ public class RegistrationDAO extends DAO<Registration> {
 	}
 
 	@Override
-	public int getPassengerCount(int id) {
+	public int getPassengerCount(Walk walk) {
 		int count = 0;
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
 					.executeQuery("SELECT COUNT(*) FROM Registration WHERE passenger_Registration = 1 AND id_Walk = '"
-							+ id + "'");
+							+ walk.findId() + "'");
 			if (result.first()) {
 				count = result.getInt(1);
 			}
@@ -136,7 +140,7 @@ public class RegistrationDAO extends DAO<Registration> {
 	}
 
 	@Override
-	public ArrayList<String> getDriver(int id) {
+	public ArrayList<String> getDriver(Walk walk) {
 		ArrayList<String> lst_dataDriver = new ArrayList<String>();
 		try {
 			ResultSet result = this.connect
@@ -144,7 +148,7 @@ public class RegistrationDAO extends DAO<Registration> {
 							"SELECT username_Person, name_Person, firstname_Person, nbrMemberPlace_Car, nbrBikePlace_Car "
 									+ "FROM Registration INNER JOIN Person ON Person.id_Person = Registration.id_Person "
 									+ "LEFT JOIN Car on Car.id_Person = Person.id_Person "
-									+ "WHERE driver_Registration = 1 AND id_Walk = '" + id + "'");
+									+ "WHERE driver_Registration = 1 AND id_Walk = '" + walk.findId() + "'");
 			if (result.first()) {
 				lst_dataDriver.add(result.getString("username_Person"));
 				lst_dataDriver.add(result.getString("name_Person"));
@@ -160,12 +164,12 @@ public class RegistrationDAO extends DAO<Registration> {
 	}
 
 	@Override
-	public int getBikeCount(int id) {
+	public int getBikeCount(Walk walk) {
 		int count = 0;
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY).executeQuery(
-							"SELECT COUNT(*) FROM Registration WHERE bike_Registration = 1 AND id_Walk = '" + id + "'");
+							"SELECT COUNT(*) FROM Registration WHERE bike_Registration = 1 AND id_Walk = '" + walk.findId() + "'");
 			if (result.first()) {
 				count = result.getInt(1);
 			}
@@ -177,7 +181,7 @@ public class RegistrationDAO extends DAO<Registration> {
 	}
 
 	@Override
-	public ArrayList<String> getDriverForPay(int id) {
+	public ArrayList<String> getDriverForPay(Walk walk) {
 		ArrayList<String> lst_dataDriver = new ArrayList<String>();
 		try {
 			ResultSet result = this.connect
@@ -186,7 +190,7 @@ public class RegistrationDAO extends DAO<Registration> {
 									+ "FROM Registration "
 									+ "INNER JOIN Person ON Person.id_Person = Registration.id_Person "
 									+ "INNER JOIN Walk on Walk.id_Walk = Registration.id_Walk "
-									+ "WHERE driver_Registration = 1 AND id_Walk = '" + id + "'");
+									+ "WHERE driver_Registration = 1 AND id_Walk = '" + walk.findId() + "'");
 			while(result.next())
 			{
 				lst_dataDriver.add(result.getString("name_Person"));
@@ -202,7 +206,7 @@ public class RegistrationDAO extends DAO<Registration> {
 	}
 
 	@Override
-	public ArrayList<String> getPassenger(int id) {
+	public ArrayList<String> getPassenger(Walk walk) {
 		ArrayList<String> lst_passenger = new ArrayList<String>();
 		try {
 			ResultSet result = this.connect
@@ -211,7 +215,7 @@ public class RegistrationDAO extends DAO<Registration> {
 									+ "FROM Registration "
 									+ "INNER JOIN Person ON Person.id_Person = Registration.id_Person "
 									+ "INNER JOIN Walk on Walk.id_Walk = Registration.id_Walk "
-									+ "WHERE passenger_Registration = 1 AND id_Walk = '" + id + "'");
+									+ "WHERE passenger_Registration = 1 AND id_Walk = '" + walk.findId() + "'");
 			while(result.next())
 			{
 				lst_passenger.add(result.getString("name_Person"));
@@ -224,6 +228,36 @@ public class RegistrationDAO extends DAO<Registration> {
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	@Override
+	public ArrayList<Category> getAllCategory(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getAllWalk(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Car findCarForPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Bike findBikeByPerson(Person person) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Walk> getWalkByPersonAndCategory(Person person, Category category) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 
