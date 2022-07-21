@@ -122,7 +122,7 @@ public class CalculateForfeit extends JFrame {
 			}
 		}
 		categoriesArea.setBackground(new Color(240, 240, 240));
-		categoriesArea.setBounds(206, 227, 372, 40);
+		categoriesArea.setBounds(206, 227, 442, 41);
 		contentPane.add(categoriesArea);
 
 		JButton btn_validate = new JButton("Validate");

@@ -104,15 +104,12 @@ public class MemberHome extends JFrame {
 		DefaultTableModel model = (DefaultTableModel) table.getModel();
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		Date now = new Date();
+		java.sql.Date now = new java.sql.Date (System.currentTimeMillis());
 		for (Walk walk : w.getAll()) {
-			if (simpleDateFormat.format(now).toString().compareTo(simpleDateFormat.format(walk.getDateDeparture())) > 0) {
-				if(list_cat_str.contains(walk.getCategory_walk()))
-				{
-					Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
-							walk.getPlaceDeparture(), walk.getDescription_walk() };
-					model.addRow(row);
-				}
+			if (now.compareTo(walk.getDateDeparture()) < 0) {
+				Object[] row = new Object[] { walk.findId(), walk.getCategory_walk(), simpleDateFormat.format(walk.getDateDeparture()),
+						walk.getPlaceDeparture(), walk.getDescription_walk() };
+				model.addRow(row);
 			}
 		}
 		walkList.setViewportView(table);
