@@ -40,7 +40,6 @@ public class RegistrationDAO extends DAO<Registration> {
 
 	@Override
 	public boolean update(Registration obj) {
-		Registration rg = null;
 		try {
 			int result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY)
@@ -48,7 +47,10 @@ public class RegistrationDAO extends DAO<Registration> {
 							+ "SET driver_Registration = '" + obj.isDriver() + "', "
 							+ "passenger_Registration = '"+ obj.isPassenger() +"' "
 							+ "WHERE id_Person = '" + obj.getPerson().findId() + "' AND id_Walk = '" + obj.getWalk().findId() + "'");
-			return true;
+			if (result == 1)
+				return true;
+			else 
+				return false;
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

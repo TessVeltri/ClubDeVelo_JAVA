@@ -47,7 +47,6 @@ public class Member extends Person implements Serializable {
 		this.pay = pay;
 	}
 
-	// Methods
 	public boolean isPayed() {
 		return payed;
 	}

@@ -202,11 +202,11 @@ public class DriverAvailability extends JFrame {
 			nbr_place_bike = Integer.parseInt(lst.get(4));
 		}
 		int nbr_bike = Integer.parseInt(lbl_bikeCountValue.getText());
-		if (walk.getBikePlaceForWalk(nbr_bike, nbr_place_bike) < 0) {
+		if (walk.getBikePlace(nbr_bike, nbr_place_bike) < 0) {
 			lbl_bikeNeedValue.setForeground(Color.BLACK);
 			lbl_bikeNeedValue.setText("0");
 		} else {
-			lbl_bikeNeedValue.setText("" + walk.getBikePlaceForWalk(nbr_bike, nbr_place_bike));
+			lbl_bikeNeedValue.setText("" + walk.getBikePlace(nbr_bike, nbr_place_bike));
 		}
 		lbl_bikeNeedValue.setFont(new Font("Serif", Font.PLAIN, 20));
 		lbl_bikeNeedValue.setBounds(574, 376, 59, 27);

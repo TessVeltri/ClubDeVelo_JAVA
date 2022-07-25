@@ -75,12 +75,6 @@ public class Walk implements Serializable {
 	}
 
 	// Methods
-	public ArrayList<Walk> getAll() {
-		ArrayList<Walk> lst_walk = new ArrayList<Walk>();
-		lst_walk = walkDAO.getAll();
-		return lst_walk;
-	}
-
 	public ArrayList<Walk> getAll(Person person) {
 		ArrayList<Walk> lst_walk = new ArrayList<Walk>();
 		lst_walk = walkDAO.getAllWalk(person);
@@ -90,11 +84,6 @@ public class Walk implements Serializable {
 	public int findId() {
 		int id = walkDAO.findId(this);
 		return id;
-	}
-
-	public Walk findById(int id) {
-
-		return walkDAO.find(id);
 	}
 
 	public Walk find() {
@@ -112,13 +101,13 @@ public class Walk implements Serializable {
 		return update;
 	}
 
-	public int getBikePlaceForWalk(int bike, int actualPlace) {
+	public int getBikePlace(int bike, int actualPlace) {
 
 		return bike - actualPlace;
 	}
 
 	public int getCarPlace(int nbr_pass, int nbr_place_pass) {
-	
+
 		return nbr_pass - nbr_place_pass;
 	}
 }
